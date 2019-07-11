@@ -1,0 +1,462 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	CanvasEx<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>Wrapper class around the kineticJS canvas</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>CanvasEx</b>(id:String, left:Int, top:Int, uiStyle:CanvasExStyle=null):CanvasEx<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		id of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the accordion
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the accordion
+	</td>
+</tr>
+<tr class="evenRow">
+<td>uiStyle</td><td>CanvasExStyle=null</td><td>
+		style data to pass to the Canvas
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>isAnimating</b> : Boolean<br>
+		Is the canvas currently receiving frame update requests?
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>addCircle</b>(layer:Kinetic.Layer, params:Object):Kinetic.Shape<br>
+	
+<p>Adds a Circle to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the shape to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>params</td><td>Object</td><td>
+		An object containing the parameters to create the shape with
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addGroup</b>(layer:Kinetic.Layer, params:Object):Kinetic.Shape<br>
+	
+<p>Adds a Group to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the group to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>params</td><td>Object</td><td>
+		An object containing the parameters to create the group with
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addImage</b>(layer:Kinetic.Layer, image:String, params:Object):Kinetic.Image<br>
+	
+<p>Adds an Image to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the Image to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>image</td><td>String</td><td>
+		Path to the image
+	</td>
+</tr>
+<tr class="oddRow">
+<td>params</td><td>Object</td><td>
+		An object containing the parameters to create the Image with
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addLayer</b>(layer:Kinetic.Layer=null):Kinetic.Layer<br>
+	
+<p>Creates or adds a layer and adds it to the canvas</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer=null</td><td>
+		The layer to add. If nothing is passed a new layer is created.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addLine</b>(layer:Kinetic.Layer, params:Object):Kinetic.Shape<br>
+	
+<p>Adds a Line to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the shape to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>params</td><td>Object</td><td>
+		An object containing the parameters to create the shape with
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addPolygon</b>(layer:Kinetic.Layer, params:Object):Kinetic.Shape<br>
+	
+<p>Adds a Polygon to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the shape to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>params</td><td>Object</td><td>
+		An object containing the parameters to create the shape with
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addRect</b>(layer:Kinetic.Layer, params:Object):Kinetic.Shape<br>
+	
+<p>Adds a Rect to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the shape to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>params</td><td>Object</td><td>
+		An object containing the parameters to create the shape with
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addShape</b>(layer:Kinetic.Layer, shape:Kinetic.Shape):Kinetic.Shape<br>
+	
+<p>Adds a shape to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the shape to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>shape</td><td>Kinetic.Shape</td><td>
+		The shape to add to the layer
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addText</b>(layer:Kinetic.Layer, params:Object):Kinetic.Shape<br>
+	
+<p>Adds a Text object to the given layer</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>layer</td><td>Kinetic.Layer</td><td>
+		The layer to add the shape to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>params</td><td>Object</td><td>
+		An object containing the parameters to create the shape with
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>align</b>(obj1:Kinetic.Node, obj2:Kinetic.Node, style:String=center):Void<br>
+	
+<p>Aligns two objects</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>obj1</td><td>Kinetic.Node</td><td>
+		The first object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>obj2</td><td>Kinetic.Node</td><td>
+		The second object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>style</td><td>String=center</td><td>
+		The alignment style. Currently only center and topLeft are supported
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>animate</b>():Void<br>
+	
+<p>Starts the animation loop</p>
+</div>
+<div class="methodDiv">
+<b>clear</b>():Void<br>
+	
+<p>Clears and repaints the canvas.</p>
+</div>
+<div class="methodDiv">
+<b>collides</b>(obj1:Kinetic.Node, obj2:Kinetic.Node):Boolean<br>True/False Are the objects colliding?
+	<p>Checks to see if two objects are overlapping.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>obj1</td><td>Kinetic.Node</td><td>
+		The first object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>obj2</td><td>Kinetic.Node</td><td>
+		The second object
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>createLayer</b>():Kinetic.Layer<br>
+	
+<p>Creates a new layer but does not add it to the canvas</p>
+</div>
+<div class="methodDiv">
+<b>destroy</b>():Void<br>
+	
+<p>Cleanly destroys the Cavnas and frees it from memory</p>
+</div>
+<div class="methodDiv">
+<b>repaint</b>():Void<br>
+	
+<p>Repaints the canvas.</p>
+</div>
+<div class="methodDiv">
+<b>setDraggable</b>(obj:Kinetic.Node, value:Boolean):Void<br>
+	
+<p>Changes the objects draggable property</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>obj</td><td>Kinetic.Node</td><td>
+		The object to set draggable.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>value</td><td>Boolean</td><td>
+		True/False Should the object be draggable
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setScale</b>(ratio:Int):Void<br>
+	
+<p>Scales the Canvas to the given ratio</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>ratio</td><td>Int</td><td>
+		The ratio to scale the canvas
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>stopAnimation</b>():Void<br>
+	
+<p>Stops the animation loop</p>
+</div>
+</body>
+</html>

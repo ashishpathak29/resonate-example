@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Conversation</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		
+		<style>
+			.ballonText{
+				position:absolute;
+				width:380px;
+				height:280px;
+				font-size:1rem;
+				text-decoration:none;
+				overflow:auto;
+				z-index:10;
+			}
+			.ballonLeft{
+				
+				top:110px;
+				left:265px;
+				
+			}
+			
+			.ballonRight{
+				
+				top:110px;
+				left:332px;
+				
+			}
+			
+			.informationText
+			{
+				position:absolute;
+				top:80px;
+				left:115px;
+				width:770px;
+				height:325px;
+				font-size:1rem;
+				text-decoration:none;
+				overflow:auto;
+				z-index:10;
+				
+			}
+
+
+		</style>
+		
+		
+		<script>
+			var pageContent;
+			var conversation;
+			var layers = new Object();
+			layers.ballon = null;
+			layers.question = null;
+			layers.information = null;
+			var currentBallon = null;
+			var currentAction = null;
+			var actor1Image;
+			var actor2Image;
+			 var continueBtn;
+			var overrideContinue = null;
+			 var mcDisplay;
+			 
+			$(document).ready(function()
+			{
+				
+				 enableNextButton(false);
+				 pageContent = new PageContent();
+				 
+				scaleDiv( $("#dialogText"));
+				scaleDiv($("#informationText"));
+				 
+				 
+				 
+				 conversation = new Conversation(course.page.getParam("conversationFile",course.language),handleConversationLoaded);
+				 layers.ballon = pageContent.canvas.addLayer();
+				 layers.question = pageContent.canvas.addLayer();
+				 layers.information = pageContent.canvas.addLayer();
+				 
+				 actor1Image  = pageContent.addChild( new ImageObj("actor1Image",55,150,129,129,Styles.image,""));
+				 actor1Image.setCSS("opacity","1");
+				 
+				  actor2Image = pageContent.addChild( new ImageObj("actor2Image",820,150,129,129,Styles.image,""));
+				 actor2Image.setCSS("opacity","1");
+				 
+				 
+				 
+				  continueBtn = pageContent.addChild(new StandardButton("continueBtn",460,450,new StandardButtonStyle(100,40)));
+       			  var continueBtnText=continueBtn.addChild(new TextArea("caption",0,10,new TextAreaStyle(100,30)));
+				  continueBtnText.setText(course.strings["continue"][course.language]);
+				  continueBtn.addListener("onClick",handleContinueClick);
+				  
+				
+				  
+			});
+		
+		
+			function handleContinueClick(e)
+			{
+				
+				if (overrideContinue)
+				{
+					currentAction = conversation.getFirstAction(overrideContinue,0);
+					
+				}else{
+					currentAction = conversation.getNextAction();
+				}
+				
+				overrideContinue = null;
+				
+				if (currentAction == null){
+					conversation.getNextActionSet();
+					currentAction= conversation.getNextAction();
+				}// end if
+				
+				if (currentAction == null)
+				{
+					
+				}else{
+					paintAction(currentAction);
+					
+				}// end if
+			}// end function
+		
+			
+		
+		
+			function handleConversationLoaded()
+			{
+				
+				
+				currentAction = conversation.getFirstAction();
+				
+				actor1Image.swapImage(conversation.actors.items[0].value.getInitState());
+				actor2Image.swapImage(conversation.actors.items[1].value.getInitState());
+				
+				paintAction(currentAction);
+				
+			}
+			
+			function paintAction(action)
+			{
+		
+		
+				switch (action.actionType){
+			
+		
+					case "dialog":
+					
+					paintDialog(action);
+					break;
+					case "question":
+					
+						clearLayers();
+						 paintQuestion(action);
+					break;
+					case "information":
+					
+						clearLayers();
+						 continueBtn.setCSS("opacity","1");
+						paintInformation(action);
+						
+						if (action.branch != null && action.branch > 0){overrideContinue = action.branch; }
+						if (action.branch == "nextPage"){
+							
+							 continueBtn.setCSS("opacity","0");
+							enableNextButton(true);
+							//console.log("User's path through the conversation: " + conversation.getUserPath());
+						}// end if
+					
+					break;
+				}
+				
+			}
+			
+			function clearLayers()
+			{
+				
+				 actor1Image.setCSS("opacity","0");
+				 actor2Image.setCSS("opacity","0");
+				 continueBtn.setCSS("opacity","0");
+				 $("#dialogText").css("visibility","hidden");
+				  $("#informationText").css("visibility","hidden");
+				 layers.ballon.removeChildren();
+				 layers.question.removeChildren();
+				 layers.information.removeChildren();
+				 layers.ballon.draw();
+				 layers.question.draw();
+				 layers.information.draw();
+				
+			}// end function
+		
+		
+			function paintDialog(action)
+			{
+					$("#dialogText").removeClass("ballonLeft");
+					$("#dialogText").removeClass("ballonRight");
+					var pos = {left:0,top:0};		
+						clearLayers();
+						
+						if (action.actor.index % 2 == 0)
+						{
+							
+							
+							actor1Image.swapImage(action.actor.getState(action.state));
+							paintBallon({x:250,y:100,width:400,height:300,arrow:"midLeft"});
+							$("#dialogText").addClass("ballonLeft");
+							pos = {left:265,top:110};
+						
+						}else{
+							actor2Image.swapImage(action.actor.getState(action.state));
+							paintBallon({x:320,y:100,width:400,height:300,arrow:"midRight"});
+							$("#dialogText").addClass("ballonRight");
+							pos = {left:332,top:110};
+						}// end if
+						
+						$("#dialogText").text(action.text);
+						
+						 
+						
+						
+						 actor1Image.setCSS("opacity","1");
+						 actor2Image.setCSS("opacity","1");
+						 continueBtn.setCSS("opacity","1");
+						 
+						 $("#dialogText").css("visibility","visible");
+						
+						scaleDiv($("#dialogText"),pos);
+			}
+		
+			function paintBallon(ballonParams,layer)
+			{
+				if (layer == undefined){layer = layers.ballon;}
+				if (currentBallon != null){
+				layer.removeChildren();
+				
+				}
+				var bParams = {
+					points: [],
+			        fill: '#ffffff',
+			        stroke:"black",
+			        strokeWidth: 3,
+			        closed: true,
+			        shadowColor: 'black',
+			        shadowBlur: 10,
+			        shadowOffset: {x:5,y:5},
+			        shadowOpacity: 0.5,
+			        shadowEnabled:true
+				};
+				
+				
+				addPointToPolygon(ballonParams.x,ballonParams.y,bParams.points);// top left
+				addPointToPolygon(ballonParams.x + ballonParams.width,ballonParams.y,bParams.points);// top right
+				switch(ballonParams.arrow)
+				{
+					case "lowerLeft":
+						addPointToPolygon(ballonParams.x + ballonParams.width,ballonParams.y+ballonParams.height,bParams.points);
+						addPointToPolygon(ballonParams.x + 30,ballonParams.y+ballonParams.height ,bParams.points);
+						addPointToPolygon(ballonParams.x - 30,ballonParams.y+ballonParams.height+30,bParams.points);
+						addPointToPolygon(ballonParams.x,ballonParams.y+ballonParams.height-30,bParams.points);
+					break;
+					case "lowerRight":
+						addPointToPolygon(ballonParams.x + ballonParams.width,ballonParams.y+ballonParams.height-30,bParams.points);
+						addPointToPolygon(ballonParams.x + ballonParams.width + 30,ballonParams.y+ballonParams.height+30,bParams.points);
+						addPointToPolygon(ballonParams.x + ballonParams.width-30,ballonParams.y+ballonParams.height,bParams.points);
+						addPointToPolygon(ballonParams.x,ballonParams.y+ballonParams.height,bParams.points);
+					break;
+					case "midLeft":
+						addPointToPolygon(ballonParams.x + ballonParams.width,ballonParams.y+ballonParams.height,bParams.points);
+						addPointToPolygon(ballonParams.x ,ballonParams.y+ballonParams.height ,bParams.points);
+						addPointToPolygon(ballonParams.x ,((ballonParams.y+ballonParams.height)-((ballonParams.y+ballonParams.height)/2))+15,bParams.points);
+						addPointToPolygon(ballonParams.x-30 ,((ballonParams.y+ballonParams.height)-((ballonParams.y+ballonParams.height)/2)),bParams.points);
+						addPointToPolygon(ballonParams.x ,((ballonParams.y+ballonParams.height)-((ballonParams.y+ballonParams.height)/2))-15,bParams.points);
+					break;
+					case "midRight":
+					
+						addPointToPolygon(ballonParams.x + ballonParams.width ,((ballonParams.y+ballonParams.height)-((ballonParams.y+ballonParams.height)/2))-15,bParams.points);
+						addPointToPolygon(ballonParams.x + ballonParams.width + 30 ,((ballonParams.y+ballonParams.height)-((ballonParams.y+ballonParams.height)/2)),bParams.points);
+						addPointToPolygon(ballonParams.x + ballonParams.width,((ballonParams.y+ballonParams.height)-((ballonParams.y+ballonParams.height)/2))+15,bParams.points);
+						addPointToPolygon(ballonParams.x + ballonParams.width,ballonParams.y + ballonParams.height,bParams.points);
+						addPointToPolygon(ballonParams.x ,ballonParams.y + ballonParams.height,bParams.points);
+						break;
+				}
+				
+				addPointToPolygon(ballonParams.x,ballonParams.y,bParams.points);
+				
+				currentBallon = pageContent.canvas.addPolygon(layer,bParams );
+				
+			}
+		
+			function addPointToPolygon(x,y,array)
+			{
+				array.push(x);
+				array.push(y);
+				
+				
+			}
+		
+		
+			function paintInformation(infoAction)
+			{
+				
+				
+				var informationRect = pageContent.canvas.addRect(layers.information,{
+			        x: 100,
+			        y: 60,
+			        width: 800,
+			        height: 360,
+			        fill: '#FFFFFF',
+			        stroke: 'black',
+			        strokeWidth: 4,
+			        cornerRadius:6,
+			        shadowColor: 'black',
+			        shadowBlur: 10,
+			        shadowOffset: {x:10,y:10},
+			        shadowOpacity: 0.5,
+			        visible:true		      
+			      });	
+				 $("#informationText").text(infoAction.text);
+				 $("#informationText").css("visibility","visible");
+			}
+		
+		
+			function paintQuestion(question)
+			{
+				 mcDisplay = new MultipleChoiceDisplay(question,null,pageContent,252,100,500,400);
+				mcDisplay.setCSS("z-index",15);
+				mcDisplay.addListener("onJudge",handleJudge);
+				
+				var questionRect = pageContent.canvas.addRect(layers.question,{
+			        x: 100,
+			        y: 60,
+			        width: 800,
+			        height: 400,
+			        fill: '#FFFFFF',
+			        stroke: 'black',
+			        strokeWidth: 4,
+			        cornerRadius:6,
+			        shadowColor: 'black',
+			        shadowBlur: 10,
+			        shadowOffset: {x:10,y:10},
+			        shadowOpacity: 0.5,
+			        visible:true		      
+			      });	
+				
+				
+			}
+		
+			function handleJudge(e)
+			{
+				
+				
+				layers.question.removeChildren();
+				layers.question.draw();
+				mcDisplay.divObject.empty();
+				
+				mcDisplay.divObject.remove();
+				
+				if (e.distractor.branch != undefined && e.distractor.branch!= -1)
+				{
+					currentAction = conversation.getAction(e.distractor.branch,0);
+					paintAction(currentAction);
+				}else{
+					
+					// done should handle it with a branch path
+				}
+				
+			}
+		
+		
+		</script>
+	</head>
+
+	<body>
+		
+		<div id="dialogText" class="ballonText ballonLeft">
+			
+		</div>
+		<div id="informationText" class="informationText">
+			
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Skin</title>
+<link href="skin/css/skin-lion/ui.fancytree.css" rel="stylesheet" type="text/css">
+<!--
+<script src="js/jquery/jquery.fancytree.js" type="text/javascript"></script>
+-->
+<script>
+
+var Styles = new Object();
+
+Styles.pageCanvas = new CanvasExStyle();
+Styles.pageCanvas.width=1004 *course.scale;
+Styles.pageCanvas.height = 563*course.scale;
+/*
+Styles.lrgBtn = new ButtonStyle();
+Styles.lrgBtn.add("background-image",'url("images/skin/lrgBtn.png")');
+Styles.lrgBtn.width = 297;
+Styles.lrgBtn.height = 45;
+Styles.lrgBtn.xOffSet = -300;
+
+Styles.checkBox = new CheckBoxStyle();
+				
+Styles.checkBox.add("background-image",'url("images/skin/CheckBox2.png")');
+Styles.checkBox.width = 39;
+Styles.checkBox.height = 39;
+Styles.checkBox.xOffSet = -41;
+*/
+
+Styles.image = new ImageStyle();
+Styles.image.add("opacity", 0);
+
+Styles.dragImage = new ImageStyle();
+Styles.dragImage.draggable = true;
+Styles.dragImage.add("z-index",11);
+Styles.dragArea = {width:1007,height:636};
+
+
+Styles.dropImage = new ImageStyle();
+Styles.dropImage.droppable = true;
+Styles.dropImage.add("z-index",10);
+
+var firstLoaded = false;
+var resumeDialog;
+var mobileAudioDialog;
+
+$(window).resize(function () { 
+	//console.log("resize");
+	//console.log($("#skin").css("-webkit-transform"));
+	
+	
+	
+	if (pageContent != null && pageContent!= undefined){
+		pageContent.refreshStage($("#skin").css("-webkit-transform")=="none"?1:0.8);
+		pageContent.dispatch("onWindowResize");
+		} 
+	
+});
+
+
+function handlePageLoaded(e)
+{
+	
+	
+	
+
+	setTitle();
+
+	if (course.pageAvailable("prev")==null)
+	{
+		$("#backBtn").hide();
+	}else{
+		$("#backBtn").show();
+	}// end if
+	
+	//if ( e.page.index < e.page.container.getPageCount()-1)
+	if (course.pageAvailable("next")==null)
+	{
+		$("#nextBtn").hide();
+	}else{
+		
+		
+	}
+	
+	
+	switch(course.pageIndicator){
+		
+		case 1:
+			//$("#pageIndicator").html(course.strings.pageOf[course.language].replace("{0}",(e.page.absoluteIndex + 1)).replace("{1}",(course.masterPageList.length)));
+			$("#pageIndicator").html(course.strings.pageOf[course.language].replace("{0}",(e.page.resolvedAbsoluteIndex + 1)).replace("{1}",(course.getPageCount(false))));
+		break;
+		default:
+			//$("#pageIndicator").html(course.strings.pageOf[course.language].replace("{0}",(e.page.index + 1)).replace("{1}",(e.page.container.getPageCount())));
+			$("#pageIndicator").html(course.strings.pageOf[course.language].replace("{0}",(e.page.resolvedIndex + 1)).replace("{1}",(e.page.container.getPageCount(false))));
+		break;
+	}
+	
+	$("#jumpTree").fancytree("getTree").activateKey(e.page.id);
+	
+	
+	var i;
+	var statusArray = new Array();
+	for (i=0;i<course.containers.length;i++)
+	{
+		statusArray.push(course.containers[i].getStatus());
+		
+	}// end for
+	jumpMenu.refresh(statusArray);
+	
+	showPreloader(preload);
+	preload = false;
+	
+	
+	if (!firstLoaded && course.allowResume)
+	{
+		
+		 if (course.loadResumeData(TrackingManager.getBookmark())>0)
+		{
+			var selectedLanguage = course.loadedLanguage || course.language;
+			console.log("selected language " + selectedLanguage);
+			console.log(course.strings.resumeDialog[selectedLanguage]);
+			$("#resumeDialog").html(course.strings.resumeDialog.caption[selectedLanguage]);
+			$("#resumeDialog").css("opacity",1);
+			     resumeDialog = new Dialog("resumeDialog",300,80,"#resumeDialog",new DialogStyle({appendTo:"#stage",modal:true,position:['center','center']}));
+				// size the width (height will auto size)
+				resumeDialog.divObject.dialog("option","width",400);
+				resumeDialog.divObject.dialog("option","height",200);
+				resumeDialog.divObject.dialog("option","title",course.strings.resumeDialog.title[selectedLanguage]);
+				var okBtn = resumeDialog.addChild(new StandardButton("okBtn",200,100,new StandardButtonStyle(80,40)));
+				okBtn.addChild(new TextArea("caption",0,10,new TextAreaStyle(80,30))).setText(course.strings.yes[course.language]);
+				
+				okBtn.addListener("onClick",function(event){
+					resumeDialog.close();
+					resumeDialog.setVisible(false);
+					course.loadPage(course.masterPageList[course.loadedBookmark]);
+					course.switchLanguage(selectedLanguage);
+				});
+				
+				
+				var noBtn = resumeDialog.addChild(new StandardButton("noBtn",100,100,new StandardButtonStyle(80,40)));
+				noBtn.addChild(new TextArea("caption",0,10,new TextAreaStyle(80,30))).setText(course.strings.no[course.language]);
+				noBtn.addListener("onClick",function(event){
+					resumeDialog.close();
+					resumeDialog.setVisible(false);
+					course.switchLanguage(selectedLanguage);
+					});
+				resumeDialog.open();
+	 }// end if
+	}// end if
+	firstLoaded = true;
+	
+}// end function
+
+
+function showMobileDialog()
+{
+                var selectedLanguage = course.loadedLanguage || course.language;
+                
+               
+                
+                 $("#mobileAudioDialog").css("opacity",1);
+                
+                 mobileAudioDialog = new Dialog("mobileAudioDialog",300,80,"#mobileAudioDialog",new DialogStyle({appendTo:"#stage",modal:true,position:['center','center'],dialogClass:"no-close"}));
+                // size the width (height will auto size)
+                mobileAudioDialog.divObject.dialog("option","width",400);
+                mobileAudioDialog.divObject.dialog("option","height",250);
+                mobileAudioDialog.divObject.dialog("option","title",course.strings.resumeDialog.title[selectedLanguage]);
+               mobileAudioDialog.divObject.dialog( "option", "closeOnEscape", false );
+                var okBtn = mobileAudioDialog.addChild(new StandardButton("okBtn",250,150,new StandardButtonStyle(80,40)));
+                okBtn.addChild(new TextArea("caption",0,10,new TextAreaStyle(80,30))).setText("Got it!");
+                
+                okBtn.addListener("onClick",function(event){
+                    mobileAudioDialog.close();
+                    mobileAudioDialog.setVisible(false);
+                     showPreloader(true);
+                      SoundManager.clearSound();
+                   course.loadManifest("manifest.xml"); // loads the structure and starts the course
+                });
+        
+        showPreloader(false);
+        mobileAudioDialog.open();
+       
+    
+}
+
+
+function showPreloader(value)
+{
+	//console.log("show loader " + value);
+	if (value == undefined){value = true;}
+	$("#loadingSpinner").css("visibility",value?"visible":"hidden");
+
+}
+
+function enableNextButton(value)
+{
+	if (value)
+	{
+		
+		$("#nextBtn").show();
+		
+	}else{
+		
+		
+		$("#nextBtn").hide();
+		
+	}
+	
+	if (course.page.status == 2)
+	{
+	 $("#nextBtn").show();
+	$("#nextBtn").css("display","");
+	}
+	
+}
+
+
+function enableReplayButton(value)
+{
+	if (value)
+	{
+		
+		$("#replayBtn").show();
+		
+	}else{
+		
+		
+		$("#replayBtn").hide();
+		
+	}
+	
+	if (course.page.status == 2)
+	{
+	 $("#replayBtn").show();
+	 $("#replayBtn").css("display","");
+	}
+	
+}
+
+function enablePrevButton(value)
+{
+	//console.log("prev button");
+	//console.log(value);
+	if (value)
+	{
+		
+		$("#backBtn").show();
+	}else{
+		
+		$("#backBtn").hide();
+	}
+}
+
+function handlePageUnloaded(e){
+	setPrompt("");
+	enableNextButton(true);
+	enablePrevButton(true);
+	enableReplayButton(true);
+	showPreloader();
+	$("#menu").hide();
+	}
+
+function setPrompt(value)
+{
+	$("#promptArea").html(value);
+	
+}
+
+function setTitle()
+{
+	
+	$("#courseLocation").html(course.getTitle(course.titleDepth));
+	
+}
+
+var propInspector;
+function setDebugOn(value)
+{
+	if (value == undefined){value = true;}
+	
+	course.debug = value;
+	if (value){
+		
+			$("#pageIndicator").bind("click",handlePageIndicatorClick);
+			$("#pageIndicator").css("cursor","pointer");
+			
+	}else
+	{
+			$("#pageIndicator").unbind("click",handlePageIndicatorClick);
+			$("#pageIndicator").css("cursor","default");
+			if (propInspector!= null){propInspector.destroy();}
+	}
+	return "Debug set to " + value;
+	
+}// end function
+
+function handleOnStartCourse(e)
+{
+	
+	FileSystem.setLocalHost(course.localHostPath,course.useLocalHost);
+	
+	if (!course.audioEnabled){
+		$("<style type='text/css'> .audioBtn{ visibility:hidden} </style>").appendTo("head");
+	}
+	
+	if (course.languages.items.length == 1){$("#langBtn").css("visibility","hidden");}
+	/*console.log("course debug for jump" + course.debug);
+	if (course.debug){
+		$("#pageIndicator").bind("click",handlePageIndicatorClick);
+	}else{
+		$("#pageIndicator").css("cursor","default");
+		
+	}
+	*/
+	setDebugOn(course.debug);
+	
+	//$("#jumpTree").fancytree({source:$.toJSON(course.toSimpleObject())});
+	var jumpData = course.toSimpleObject(course.language);
+	var treeData = new Array();
+	var i;
+	var j;
+	var con;
+	var temp;
+	$("#menu").hide();
+	jumpMenu = new JumpMenu("#menu",jumpData);
+	//console.log("menu pos");
+	//console.log($("#menu").position());
+	//scaleDiv("#menu",{left:140,top:320});
+	// very simple / limited way of converting simple object to tree data
+	for (i=0;i<jumpData.containers.length;i++)
+	{
+		var con = jumpData.containers[i];
+		var pg;
+		temp = new Object();
+		//temp.key = con.id;
+		temp.title = con.title;
+		temp.folder = true;
+		temp.children = [];
+		for (j=0;j<con.pages.length;j++)
+		{
+				pg = con.pages[j];
+				temp.children.push({key:pg.id,title:pg.title,tooltip:pg.id + " - " + pg.file});
+			
+		}
+		treeData.push(temp);
+		
+	}// end for
+	
+	 $("#jumpTree").css("visibility","visible");
+	 $("#jumpTree").fancytree({source:treeData,
+	 	keyboard:false,
+	 	click: function(event, data){
+	 		//console.log(event);
+	 		//console.log(data);
+	 		if (!data.node.folder){
+    		course.loadPageByID(data.node.key);
+    		$("#jumpTree").toggle();
+    	}
+	 	}
+      });
+      
+      
+   
+				
+      
+    
+}
+
+
+
+function handlePageIndicatorClick(e)
+{
+	
+	$("#jumpTree").toggle();
+	
+}
+
+
+function handleExit()
+	{
+		if (this.parent == this)
+		{
+			alert("no LMS detected. Please manually close this window");
+		}else{
+			
+			TrackingManager.setSessionTime();
+			TrackingManager.finish();
+			top.window.close();
+		}// end if
+	}// end function
+
+function showMenu()
+{
+	//console.log($("#menu"));
+	$("#menu").fadeToggle("slow");
+}
+
+
+function bindButtonEvents()
+{
+	
+	
+	$("#exitBtn").bind("click",function(){$('#exitToolTip').hide();handleExit();});
+	$("#exitBtn").bind("mouseenter",function(){$('#exitToolTip').show();});
+	$("#exitBtn").bind("mouseleave",function(){$('#exitToolTip').hide();});	
+	
+	$("#langBtn").bind("click",function(){
+		$('#langToolTip').hide();
+		course.switchLanguage(course.language == "en"?"es":"en");
+		});
+	$("#langBtn").bind("mouseenter",function(){$('#langToolTip').show();});
+	$("#langBtn").bind("mouseleave",function(){$('#langToolTip').hide();});	
+	
+	
+	$("#menuBtn").bind("click",function(){$('#menuToolTip').hide();showMenu();});
+	$("#menuBtn").bind("mouseenter",function(){$('#menuToolTip').show();});
+	$("#menuBtn").bind("mouseleave",function(){$('#menuToolTip').hide();});	
+	
+	$("#fsBtn").bind("click",function(){$('#fsToolTip').hide();$(document).toggleFullScreen();});
+	$("#fsBtn").bind("mouseenter",function(){$('#fsToolTip').show();});
+	$("#fsBtn").bind("mouseleave",function(){$('#fsToolTip').hide();});
+	
+	$("#backBtn").bind("click",function(){$('#backToolTip').hide();course.loadPrevPage();});
+	$("#backBtn").bind("mouseenter",function(){$('#backToolTip').show();});
+	$("#backBtn").bind("mouseleave",function(){$('#backToolTip').hide();});
+	
+	$("#replayBtn").bind("click",function(){$('#replayToolTip').hide();course.reloadPage();});
+	$("#replayBtn").bind("mouseenter",function(){$('#replayToolTip').show();});
+	$("#replayBtn").bind("mouseleave",function(){$('#replayToolTip').hide();});
+	
+	$("#nextBtn").bind("click",function(){$('#nextToolTip').hide();course.loadNextPage();});
+	$("#nextBtn").bind("mouseenter",function(){$('#nextToolTip').show();});
+	$("#nextBtn").bind("mouseleave",function(){$('#nextToolTip').hide();});
+	
+}
+// no full screen with chrome frame so shut off the button
+if(window.externalHost || isiOS()){
+
+ 
+ $("#fsBtn").hide();
+}
+course.addListener("onPageLoaded",this.handlePageLoaded);
+course.addListener("onPageUnload",this.handlePageUnloaded);
+course.addListener("onStartCourse",this.handleOnStartCourse);
+
+
+
+bindButtonEvents();
+$("#jumpTree").hide();
+
+var preload = false;
+var jumpMenu;
+</script>
+
+
+
+</head>
+
+<body>
+<div id="bottomBar"></div>
+<div id="topBar"></div>
+<div id="courseLocation"></div>
+<div id="pageIndicator"></div>
+<div id="promptArea"></div>
+<div id="exitBtn"><a class="exit"></a></div>
+<div id="langBtn"><a class="lang"></a></div>
+<div id="menuBtn"><a class="menu"></a></div>
+<div id="fsBtn"><a class="fullScreen"></a></div>
+<div id="nextBtn"><a class="next pulse"></a></div>
+<div id="backBtn"><a class="back"></a></div>
+<div id="replayBtn"><a class="replay"></a></div>
+
+
+<div id="resumeDialog" title="Welcome Back!" style="opacity: 0">
+			<p>Welcome back!</p><p> Would you like to resume where you last left off?</p>
+		</div>
+		
+<div id="mobileAudioDialog" title="Mobile device detected!" style="opacity: 0">
+            <p>Welcome!</p><p> We noticed you were running this course on a mobile device. Please ensure that you have your device turned to the side (landscape).</p>
+        </div>		
+
+</body>
+</html>

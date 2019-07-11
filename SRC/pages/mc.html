@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Sequence</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			var pageContent;
+			var question;
+			var display;
+			
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				feedbackBox = pageContent.addChild(new FeedbackDisplay("feedbackBox"));
+				feedbackBox.setButtonText("Try again");
+				feedbackBox.addListener("onContinueClick",function(e)
+				{
+					feedbackBox.setVisible(false);	
+				});
+				question = new MultipleChoiceQuestion();
+				question.addListener("onXMLLoaded",handleXMLLoaded);
+				question.loadQuestionFromXMLFile(course.page.getParam("questionFile",course.language));
+				setPrompt("Answer the Quetion");
+				enableNextButton(false);
+			});
+			
+			function handleXMLLoaded(e)
+			{
+				console.log("loaded create question display");
+				display = new MultipleChoiceDisplay(question,null,pageContent);
+				display.addListener("onJudge",handleJudge);
+			}			
+			function handleJudge(e)
+			{
+				console.log("on judge in page");
+				console.log(e);
+				if (e.correct)
+				{
+					setPrompt("Good job! Click next to continue");
+					feedbackBox.continueBtn.setVisible(false);
+					enableNextButton(true);
+				}else{
+					setPrompt("That is incorrect, try again.");
+					e.sender.enabled = true;
+				}
+				
+				feedbackBox.setText(e.feedback.text);
+				feedbackBox.addAudioButton(e.feedback.audioData);
+      			feedbackBox.setVisible(true);
+      			pageContent.refreshStage();
+				
+			}
+		</script>
+	</head>
+
+	<body onmousedown="return false;">
+		
+	</body>
+</html>

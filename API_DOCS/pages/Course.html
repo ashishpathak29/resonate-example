@@ -1,0 +1,293 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.structure<br>
+    	Name:	Course<br>
+    	Extends: <a href="Container.html">com.crackerbarrel.structure.Container<br>
+</a>
+<p>Holds a collection of language information.</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>Course</b>():Course<br>
+<p></p>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>audioEnabled</b> : Boolean<br>
+		True/False Can shut off audio at a global level.
+	</div>
+<div class="propertyDiv">
+<b>canvas</b> : Div<br>
+		The div to act as the canvas for course
+	</div>
+<div class="propertyDiv">
+<b>debug</b> : Boolean<br>
+		Is the course running in debug mode?
+	</div>
+<div class="propertyDiv">
+<b>langauge</b> : Language<br>
+		The currently selected Language
+	</div>
+<div class="propertyDiv">
+<b>loadedBookmark</b> : Int<br>
+		The absolute index of the bookmark provided by the LMS
+	</div>
+<div class="propertyDiv">
+<b>loadedLanguage</b> : String<br>
+		The selected language as provided by the LMS
+	</div>
+<div class="propertyDiv">
+<b>masterPageList</b> : Array<br>
+		An array of all the pages in the course
+	</div>
+<div class="propertyDiv">
+<b>page</b> : Page<br>
+		The currently loaded page object
+	</div>
+<div class="propertyDiv">
+<b>scale</b> : Int<br>
+		The scale of the course
+	</div>
+<div class="propertyDiv">
+<b>skinCanvas</b> : Div<br>
+		The div to act as the skin canvas for course
+	</div>
+<div class="propertyDiv">
+<b>strings</b> : Object<br>
+		An object containing common text strings in multiple languages
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>findPageByID</b>(pageID:String):Page<br>
+	
+<p>Returns a page object with the given id.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>pageID</td><td>String</td><td>
+		The page id to find
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getTitle</b>(depth:Int, seperator:String, stripHTML:Boolean=false):Page<br>
+	
+<p>Builds a single piece of text with the container and page title</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>depth</td><td>Int</td><td>
+		How deep to dive to get the title
+	</td>
+</tr>
+<tr class="evenRow">
+<td>seperator</td><td>String</td><td>
+		The seperator character to use between containers
+	</td>
+</tr>
+<tr class="oddRow">
+<td>stripHTML</td><td>Boolean=false</td><td>
+		used to pass font size information from the manifest
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>loadNextPage</b>():Void<br>
+	
+<p>Loads the next page in the current container, or the first page in the next container.</p>
+</div>
+<div class="methodDiv">
+<b>loadPage</b>(page:Page):Void<br>
+	
+<p>Load the given page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>page</td><td>Page</td><td>
+		The page to load
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>loadPageByID</b>(pageID:String):Void<br>
+	
+<p>Load the given page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>pageID</td><td>String</td><td>
+		The id of the page to load
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>loadPrevPage</b>():Void<br>
+	
+<p>Loads the previous page in the current container, or the last page in the previous container.</p>
+</div>
+<div class="methodDiv">
+<b>pageAvailable</b>(direction:String):Page<br>
+	
+<p>Checks to see if a page is available to navigate to and will return the page or null if it doesn't exist</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>direction</td><td>String</td><td>
+		either next or prev,
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>reloadPage</b>():Void<br>
+	
+<p>Reloads the current page</p>
+</div>
+<div class="methodDiv">
+<b>startCourse</b>():Void<br>
+	
+<p>Starts the course. Do not call directly, it is managed by loading the index.html file</p>
+</div>
+<div class="methodDiv">
+<b>switchLanguage</b>(shortName:String):Void<br>
+	
+<p>Changes the language of the course to the given language identified by shortName</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>shortName</td><td>String</td><td>
+		short name of the language to switch to
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>unloadPage</b>():Void<br>
+	
+<p>Unloads the current page. Do not call directly, use loadPage, loadPageByID, loadNextPage, loadPrevPage, or reloadPage() to trigger a page unload.</p>
+</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>onLanguageChanged</b>:EventEx{}
+							<br>Fires when the language has changed</div>
+<div class="eventDiv">
+<b>onPageLoaded</b>:EventEx{}
+							<br>Fires when a page has been loaded</div>
+<div class="eventDiv">
+<b>onPageUnload</b>:EventEx{}
+							<br>Fires when a page is being unloaded</div>
+<div class="eventDiv">
+<b>onSkinLoaded</b>:EventEx{}
+							<br>Fires when the skin has loaded</div>
+<div class="eventDiv">
+<b>onStartCourse</b>:EventEx{}
+							<br>Fires when the course has loaded and is starting</div>
+<div class="eventDiv">
+<b>onStringsLoaded</b>:EventEx{}
+							<br>Fires when the langauge strings are loaded</div>
+</body>
+</html>

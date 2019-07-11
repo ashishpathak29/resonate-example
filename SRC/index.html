@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		
+		<meta name="viewport" content="width=device-width, initial-scale=0.95, maximum-scale=0.95, minimum-scale=0.95, user-scalable=no, minimal-ui">
+		<title>Resonate</title>
+		<meta name="description" content="Resonate" />
+		<meta name="author" content="christopher swenson" />
+		<link rel="stylesheet" type="text/css" href="skin/css/fonts.css?ver=2.1.13"/>
+		<link rel="stylesheet" type="text/css" href="skin/css/skin.css?ver=2.1.13"/>
+		<link rel="stylesheet" type="text/css" href="skin/css/course.css?ver=2.1.13"/>
+		<link rel="stylesheet" type="text/css" href="skin/css/jqueryUI/cb-theme/jquery-ui-1.10.3.custom.min.css?ver=2.1.13"/>
+		<script src="js/resonateCore.js?ver=2.1.13"></script>
+		<script src="js/resonate.js?ver=2.1.13"></script>
+		<script src="js/extLibs.js"></script>	
+		<script>	
+		
+			// global tracking manager
+			var TrackingManager;
+			var version = "2.0.45";
+			// once everything is loaded, init the course and load the first page.
+			$(document).ready(function(){
+				//FileSystem.useLocalHost = false;
+				//FileSystem.localHostPath = "http://localhost/SRC/";
+				$("#menu").hide();
+				preloadCourseFiles();
+			});
+			
+			function initResonate()
+			{
+				
+				// only scaling for netbooks. Can make this dynamic if the need arises.
+				if ($("#skin").css("-webkit-transform")!="none" && $("#skin").css("-ms-transform")!="none" && !isTrident(7))
+				{
+					course.scale = .8;						
+				}
+				course.addListener("onSkinLoaded",handleOnSkinLoaded);
+				course.addListener("onStringsLoaded",handleOnStringsLoaded);
+				course.addListener("onLanguageChanged",handleOnLanguageChanged);
+				course.canvas = $("#stage");
+				course.skinCanvas = $("#skin");
+				
+				course.loadStrings("skin/Strings.js?ver=" + version);
+			
+			}
+			
+			function preloadCourseFiles(){
+				var loader = new Preloader();
+				var i;
+				
+				console.log("inPreload");
+				
+				
+				
+				//loader.add("js/resonate.js");
+				if (this["externalJSLibs"]!= undefined)
+					{
+						console.log(externalJSLibs);
+						for (i=0;i<externalJSLibs.length;i++)
+						{
+							console.log("load "+ externalJSLibs[i]);
+							loader.add(externalJSLibs[i]);
+							
+						}// end for
+					}// end if
+				
+				loader.add("skin/buttons/audio_up.png?ver=" + version);
+				loader.add("skin/buttons/back_up.jpg?ver=" + version);
+				loader.add("skin/buttons/back_over.jpg?ver=" + version);
+				loader.add("skin/images/footer.jpg?ver=" + version);
+				loader.add("skin/images/header.png?ver=" + version);
+				loader.add("skin/buttons/next_up.jpg?ver=" + version);
+				loader.add("skin/buttons/next_over.jpg?ver=" + version);
+				loader.add("skin/buttons/replay_up.jpg?ver=" + version);
+				loader.add("skin/buttons/replay_over.jpg?ver=" + version);
+				loader.addListener("onComplete",function(context)
+				{
+					
+					console.log("load complete");
+					
+					initResonate();
+					
+					
+				});
+				loader.load();
+			}
+			
+			function handleOnStringsLoaded(e)
+			{
+				
+				course.loadSkin("skin/skin.html?ver=" + version);
+		
+				TrackingManager = new TrackingAPI(course);
+				TrackingManager.debug = true;
+				TrackingManager.start("SCORM");
+				
+			}
+			
+		function handleOnSkinLoaded(e)
+			{
+			    //alert(isMobile() );
+			    
+			   if (isMobile()){
+			       
+			        showMobileDialog();
+			        
+			    }else{
+				   course.loadManifest("manifest.xml"); // loads the structure and starts the course
+				}
+				$("#skin").append($("#stage"));
+				 
+			}// end function
+			
+			function handleOnLanguageChanged(e)
+			{
+				
+				console.log("course strings");
+				console.log(course.strings);
+				$("#exitToolTip").find("span").html(course.strings.toolTips.exit[course.language]);
+				$("#menuToolTip").find("span").html(course.strings.toolTips.menu[course.language]);
+				$("#langToolTip").find("span").html(course.strings.toolTips.language[course.language]);
+				$("#fsToolTip").find("span").html(course.strings.toolTips.fullScreen[course.language]);
+				$("#backToolTip").find("span").html(course.strings.toolTips.back[course.language]);
+				$("#replayToolTip").find("span").html(course.strings.toolTips.replay[course.language]);
+				$("#nextToolTip").find("span").html(course.strings.toolTips.next[course.language]);
+				$("#loading_caption").find("span").html(course.strings.loadingPleaseWait[course.language]);
+				
+				if (course.language == "es")
+				{
+				
+					$("#backToolTip").find("span").css("width","80px");
+					$("#fsToolTip").find("span").css("height","30px");
+				
+				}
+			}
+			
+		
+			
+	</script>
+	</head>
+	<body>
+		<div id="skin"></div>
+		<div id="stage"></div>
+		<div id="jumpTree"></div>
+		<div id="menu"></div>
+		<div id="exitToolTip" style="display:none; z-index:100;"><span class="tooltip exitToolTip">Exit</span></div>
+		<div id="langToolTip" style="display:none; z-index:100;"><span class="tooltip langToolTip">Language</span></div>
+		<div id="menuToolTip" style="display:none; z-index:100;"><span class="tooltip menuToolTip">Menu</span></div>
+		<div id="fsToolTip" style="display:none; z-index:100;"><span class="tooltip fsToolTip">Full Screen</span></div>
+		<div id="backToolTip" style="display:none; z-index:100;"><span class="tooltip backToolTip">Back</span></div>
+		<div id="replayToolTip" style="display:none; z-index:100;"><span class="tooltip replayToolTip">Replay</span></div>
+		<div id="nextToolTip" style="display:none; z-index:100;"><span class="tooltip nextToolTip">Next</span></div>
+		<div id="loadingSpinner">
+			<div id="spinner">
+					<div id="circularG_1" class="circularG"></div>
+					<div id="circularG_2" class="circularG"></div>
+					<div id="circularG_3" class="circularG"></div>
+					<div id="circularG_4" class="circularG"></div>
+					<div id="circularG_5" class="circularG"></div>
+					<div id="circularG_6" class="circularG"></div>
+					<div id="circularG_7" class="circularG"></div>
+					<div id="circularG_8" class="circularG"></div>
+					<div id="loading_caption"><span>Loading. Please wait.</span></div>
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

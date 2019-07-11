@@ -1,0 +1,240 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.animation<br>
+    	Name:	AnimationEngine<br>
+    	Extends: <a href="EventDispatcher.html">com.crackerbarrel.events.EventDispatcher<br>
+</a>
+<p>Wrapper class for animations. Works with divs, uiComponents, and drawn canvas objects.</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>AnimationEngine</b>():AnimationEngine<br>
+<p></p>
+</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>fade</b>(object:Object, startValue:int, endValue:int, duration:int=1):null<br>
+	
+<p>Fades an object from the given start value to the given end value</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>object</td><td>Object</td><td>
+		Object to fade
+	</td>
+</tr>
+<tr class="evenRow">
+<td>startValue</td><td>int</td><td>
+		Opacity value at the start of the animation.
+	</td>
+</tr>
+<tr class="oddRow">
+<td>endValue</td><td>int</td><td>
+		Opacity value at the end of the animation.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>duration</td><td>int=1</td><td>
+		Duration that the animation should take to complete.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>fadeIn</b>(object:Object, duration:int, value:int):null<br>
+	
+<p>Fades an object in from the given value</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>object</td><td>Object</td><td>
+		Object to fade
+	</td>
+</tr>
+<tr class="evenRow">
+<td>duration</td><td>int</td><td>
+		Duration that the animation should take to complete.
+	</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>int</td><td>
+		Opacity value at the end of the animation.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>fadeOut</b>(object:Object, duration:int, startValue:int, endValue:int):null<br>
+	
+<p>Fades an object out from the given values</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>object</td><td>Object</td><td>
+		Object to fade
+	</td>
+</tr>
+<tr class="evenRow">
+<td>duration</td><td>int</td><td>
+		Duration that the animation should take to complete.
+	</td>
+</tr>
+<tr class="oddRow">
+<td>startValue</td><td>int</td><td>
+		Opacity value at the start of the animation.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>endValue</td><td>int</td><td>
+		Opacity value at the end of the animation.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>isCanvasObject</b>(object:Object):Boolean<br>True if the object passed is a drawn canvas object.
+	<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>object</td><td>Object</td><td>
+		Object to check
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>isUiComponent</b>(object:Object):Boolean<br>True if the object passed is a uiComponent.
+	<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>object</td><td>Object</td><td>
+		Object to check
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>slideUpAndFadeIn</b>(object:Object, yOffset:int, duration:int):null<br>
+	
+<p>slides up and fades in an object out from the given yOffset</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>object</td><td>Object</td><td>
+		Object to fade
+	</td>
+</tr>
+<tr class="evenRow">
+<td>yOffset</td><td>int</td><td>
+		amount of vertical movement
+	</td>
+</tr>
+<tr class="oddRow">
+<td>duration</td><td>int</td><td>
+		Duration that the animation should take to complete.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+</body>
+</html>

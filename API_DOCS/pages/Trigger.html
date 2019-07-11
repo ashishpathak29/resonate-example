@@ -1,0 +1,99 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.data<br>
+    	Name:	Trigger<br>
+    	Extends: <a href="Class.html">Class<br>
+</a>
+<p>Holds timing information for a trigger event</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>Trigger</b>(time:int):Trigger<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>time</td><td>int</td><td>
+		The time that this trigger should fire
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>active</b> : true<br>
+		Indicates if the trigger can fire. This is set to false once the trigger has been fired.
+	</div>
+<div class="propertyDiv">
+<b>index</b> : -1<br>
+		The index of the trigger in the host's objects triggers array
+	</div>
+<div class="propertyDiv">
+<b>time</b> : int<br>
+		The time that the trigger should fire.
+	</div>
+</body>
+</html>

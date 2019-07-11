@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			
+			
+			var pageContent;
+			var audio;
+			preload = true; // global variable to determine if a page is waiting on files to preload. if true the loading animation will show
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.addPreloadFile(FileSystem.getURI("images/placeHolder.jpg"));
+				pageContent.addPreloadFile(FileSystem.getURI("audio/Overview_02.mp3"));
+				pageContent.preloadFiles();// load the files and wait for the event
+				
+			});
+			
+			
+			
+			function handlePreloadComplete(e)
+			{   
+				
+				
+				setPrompt("Click Next to Continue.");
+				img = pageContent.addChild( new ImageObj("img",530,120,417,200,Styles.image,FileSystem.getURI("images/placeHolder.jpg")));
+				audio = pageContent.addAudio("audio",FileSystem.getURI("audio/overview_02.mp3"));
+				pageContent.addAudioButton(audio,"audioBtn",null,{x:490, y:430});
+				img.setClass("roundImage");
+				pageContent.refreshStage();
+				Animation.fadeIn($("#textBox"));
+				Animation.fadeIn(img);
+				showPreloader(false);
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="textBox" class="textBoxLeft" style="opacity: 0;">
+ 			<p>At Cracker Barrel, three different types of cooks work together to serve our Guests the safest, tastiest food possible. As a Backup Cook, you are responsible for baking bread and cooking a number of foods in steam kettles. To do this, you will need to organize your work area and your tasks so that you always have the right amount of product available. In addition, you must clean your area and handle food safely to ensure each Guest enjoys high quality food and has a safe dining experience. The products that you prepare play a big role in providing a Great Guest Experience.</p>
+			<p>After completing this course, you will be able to recognize your general job responsibilities, your equipment and tools and their proper use, and the proper steamline setup procedures.</p>
+		</div>	
+		
+	</body>
+</html>

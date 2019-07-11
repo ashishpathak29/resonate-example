@@ -1,0 +1,134 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.tracking<br>
+    	Name:	TrackingAPI<br>
+    	Extends: <a href="EventDispatcher.html">com.crackerbarrel.events.EventDispatcher<br>
+</a>
+<p>This class provides all functionality required to track a course and manages the tracking method. This class should not be instanced directly and is available globablly as TrackingManager</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>TrackingAPI</b>(course:Course, minScore:Int=0, maxScore:Int=100, passingScore:Int=0.8):TrackingAPI<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>course</td><td>Course</td><td>
+		A reference to the course object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>minScore</td><td>Int=0</td><td>
+		The minimum score the user can receive.
+	</td>
+</tr>
+<tr class="oddRow">
+<td>maxScore</td><td>Int=100</td><td>
+		The maximum score the user can receive.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>passingScore</td><td>Int=0.8</td><td>
+		The score required to pass the course
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>api</b> : Object<br>
+		A reference to the selected tracking method's api, currently only Scorm is provided.
+	</div>
+<div class="propertyDiv">
+<b>course</b> : Course<br>
+		A reference to the course object
+	</div>
+<div class="propertyDiv">
+<b>hasAPI</b> : Boolean=false<br>
+		Has the current tracking method been able to find a provided adaptor? Currently only Scorm is provided.
+	</div>
+<div class="propertyDiv">
+<b>maxScore</b> : Int=100<br>
+		The minimum score the user can receive
+	</div>
+<div class="propertyDiv">
+<b>minScore</b> : Int=0<br>
+		The minimum score the user can receive
+	</div>
+<div class="propertyDiv">
+<b>passingScore</b> : Int=0.8<br>
+		The score required to pass the course
+	</div>
+<div class="propertyDiv">
+<b>score</b> : Float=0<br>
+		The current score the user has received
+	</div>
+<div class="propertyDiv">
+<b>trackingMethod</b> : String=Scorm<br>
+		The method used to track this course. Currently only Scorm is provided.
+	</div>
+</body>
+</html>

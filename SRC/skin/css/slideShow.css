@@ -1,0 +1,62 @@
+.slideShow
+{
+	
+	background: #efefef;
+	position: absolute;
+	overflow: hidden;
+	left: 100px;
+	top:60px;
+	width: 500px;
+	height: 300px;
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+
+
+}
+
+.slide
+{
+	top:0px;
+	left:0px;
+	
+	visibility: hidden;
+	
+}
+
+.slideShowControls
+{
+	position: absolute;
+	background: #aaa;
+	overflow: auto;
+	top:265px;
+	left:0px;
+	width: 495px;
+	height: 30px;
+	padding: 0 0 5px 5px;
+	margin: 0;
+	
+	-webkit-border-bottom-left-radius: 6px;
+	-webkit-border-bottom-right-radius: 6px;
+	z-index: 15;
+	
+}
+
+.slideShowPlayBtn
+{
+	
+	position: absolute;
+	background: #CCCCFF;
+	overflow: auto;
+	top:5px;
+	left:10px;
+	width: 40px;
+	height: 20px;
+	//padding: 5px 0 5px 5px;
+	//margin: 0;
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-webkit-border-bottom-right-radius: 6px;
+	
+	
+}

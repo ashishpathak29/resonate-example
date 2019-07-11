@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			var pageContent;
+			var audio;
+			preload = true;
+			
+			
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.addPreloadFile(FileSystem.getURI("audio/Overview_03.mp3"));
+				pageContent.preloadFiles();// load the files and wait for the event
+				
+			});
+			
+			
+			
+			function handlePreloadComplete(e)
+			{   
+			
+				Animation.fadeIn($("#textBox"));
+				Animation.fadeIn($("#principles"));
+				setPrompt("Click Next to Continue.");
+				audio = pageContent.addAudio("audio",FileSystem.getURI("audio/Overview_03.mp3"));
+				pageContent.addAudioButton(audio,"audioBtn",null,{x:480, y:380});
+				pageContent.refreshStage();
+				showPreloader(false);
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="textBox" class="textBoxLeft" style="opacity: 0;top:120px">
+<p><span class="titleText">Our mission</span></p>
+<p><span class="boldText">Pleasing people&#174;</span> is our mission statement to our Guests. We expect you to live up to that promise. To do this, you will be expected to follow our Guiding Principles and must know the general sets of duties that you will complete during your shift. </p>
+<p>After completing this course, you will be familiar with your opening duties and the equipment and tools you will use as a Grill Cook. In addition, you will know how to prepare the grill area for use and how to prep foods for service to our Guests.</p>
+</div>
+
+	</div>	
+		<div id="principles" class="principles" style="opacity: 0">
+			<p>Guiding principles</p>
+			<p>As a Cracker Barrel employee, you should always demonstrate the following Guiding Principles and the behaviors that support them.
+			<ul>
+				<li><strong>Hospitality First</strong></li>
+				<ul><li>Friendly with a smile.</li>
+				<li>Aware of Guest comfort.</li>
+				<li>Positive and <strong>pleasing people</strong>&#174; attitude.</li></ul>
+				<li><strong>Urgency with a Purpose</strong></li>
+				<ul><li>Moving quickly with a purpose at all times to serve the Guest <strong>without sacrificing excellence</strong>.</strong></li>
+				<li>Anticipating Guests&#8217; needs before being asked.</li></ul>
+				<li><strong>Appearance</strong></li>
+				<ul><li>Have your uniform sharp and crisp.</li>
+				<li>Exhibit professional body language.</li></ul>
+				<li><strong>Team Player</strong></li>
+				<ul><li>If you are not serving the Guest, you are serving someone who is.</li>
+				<li>Have a &#8220;How Can I Help?&#8221; attitude.</li>
+				<li>Being aware of potential bottlenecks and being proactive.</li></ul></ul>
+
+			
+		</div>
+	</body>
+</html>

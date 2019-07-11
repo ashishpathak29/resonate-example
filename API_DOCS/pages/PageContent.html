@@ -1,0 +1,444 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	PageContent<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>This class should be created once per page and manages all on screen elements</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>PageContent</b>():PageContent<br>
+<p></p>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>canvas</b> : CanvasEx<br>
+		Automatically created CanvasEX object
+	</div>
+<div class="propertyDiv">
+<b>preloader</b> : Preloader<br>
+		Allows for the preloading of files
+	</div>
+<div class="propertyDiv">
+<b>scale</b> : Float<br>
+		The scale the content should be rendered as. The same as course.scale
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>addAudio</b>(id:String, file:String, autoPlay:Boolean=false):Object<br>The newly added audio object
+	<p>Adds an audio object to the page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the object.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>file</td><td>String</td><td>
+		The file path of the audio file (.mp3)
+	</td>
+</tr>
+<tr class="oddRow">
+<td>autoPlay</td><td>Boolean=false</td><td>
+		Should the audio being playing as soon as it's loaded?
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addAudioButton</b>(audioObject:SoundEx, id:String, cssClass:String=audioButton, position:300,y, parentObj:UIComponentBase=pageContent):Object<br>The newly added audio button
+	<p>Adds an audio button to the page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>audioObject</td><td>SoundEx</td><td>
+		The audio object to attach the button to.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>id</td><td>String</td><td>
+		The id of the button object.
+	</td>
+</tr>
+<tr class="oddRow">
+<td>cssClass</td><td>String=audioButton</td><td>
+		The css style to attach to the button
+	</td>
+</tr>
+<tr class="evenRow">
+<td>position</td><td>300,y</td><td>
+		a POJO giving the x and y location of the button
+	</td>
+</tr>
+<tr class="oddRow">
+<td>parentObj</td><td>UIComponentBase=pageContent</td><td>
+		The parent of the audio button
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addButton</b>(id:String, left:Int, top:Int, caption:String, params:object=null):Object<br>The newly added button
+	<p>Adds a button to the page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the button object.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		The left position of the object.
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		The top position of the object.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>caption</td><td>String</td><td>
+		The text to display on the button
+	</td>
+</tr>
+<tr class="oddRow">
+<td>params</td><td>object=null</td><td>
+		Additional parameters to pass to the button
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addChild</b>(component:UIComponentBase, scale:Boolean=true):Object<br>The newly added component
+	<p>Adds a component to the page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>component</td><td>UIComponentBase</td><td>
+		The object (inherited from UIComponentBase) to add to the page
+	</td>
+</tr>
+<tr class="evenRow">
+<td>scale</td><td>Boolean=true</td><td>
+		Should the object be scaled to match the course scale?
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addImageObject</b>(id:String, x:Int, y:Int, width:Int, height:Int, The:UIStyle, path:String):Object<br>The newly added image object
+	<p>Adds an image object to the page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the object, will become the div id.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>x</td><td>Int</td><td>
+		The X or left position of the object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>y</td><td>Int</td><td>
+		The Y or top position of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>width</td><td>Int</td><td>
+		The width of the object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>height</td><td>Int</td><td>
+		The height of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>The</td><td>UIStyle</td><td>
+		uiStyle to be passed to the object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>path</td><td>String</td><td>
+		The file path to the image.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addPreloadFile</b>(filePath:String):Void<br>
+	
+<p>Adds a file to the list of files to be preloaded</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>filePath</td><td>String</td><td>
+		The file to preload
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addTextObject</b>(id:String, x:Int, y:Int, The:UIStyle, value:String):Object<br>The newly added text object
+	<p>Adds a text object to the page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the object, will become the div id.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>x</td><td>Int</td><td>
+		The X or left position of the object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>y</td><td>Int</td><td>
+		The Y or top position of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>The</td><td>UIStyle</td><td>
+		uiStyle to be passed to the object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>String</td><td>
+		The text to display.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addTimer</b>(id:String, delay:Int, repeatCount:Int):Object<br>The newly added timer object
+	<p>Adds a timer object to the page</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the object.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>delay</td><td>Int</td><td>
+		How long to wait between onTick events
+	</td>
+</tr>
+<tr class="oddRow">
+<td>repeatCount</td><td>Int</td><td>
+		How many times to repeat the onTickEvent
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>destroy</b>():Void<br>
+	
+<p>Cleanly destroys the PageContent Object and all children.</p>
+</div>
+<div class="methodDiv">
+<b>preloadFiles</b>(fileList:Array=[]):Void<br>
+	
+<p>loads the files.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>fileList</td><td>Array=[]</td><td>
+		An array of files to preload, or the list of files created with the addPreloadFile()
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>refreshStage</b>(scale:Float=this.scale):Void<br>
+	
+<p>Repaints the course with the given scale</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>scale</td><td>Float=this.scale</td><td>
+		The scale the course should be set to
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>reparentDiv</b>(childDiv:Div, parentDiv:Div):Void<br>
+	
+<p>Moves a div to another div as a child</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>childDiv</td><td>Div</td><td>
+		The div to reparent
+	</td>
+</tr>
+<tr class="evenRow">
+<td>parentDiv</td><td>Div</td><td>
+		The new parent div
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>stopAllAudio</b>(ignoreAudioObject:SoundEx=null):Void<br>
+	
+<p>Stops all playing audio except the optional ignoreAudioObject</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>ignoreAudioObject</td><td>SoundEx=null</td><td>
+		An audio object to ignore when stopping
+	</td>
+</tr>
+</table>
+</div>
+</div>
+</body>
+</html>

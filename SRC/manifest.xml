@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<course audioEnabled="true" preloadAudio="false" titleSeperator=" - " titleDepth="0" pageIndicator="0" useLocalHost="false" localHostPath="http://localhost/SRC/">
+	<language default="true" name="english" shortName="en"/>
+	<title language="en"><![CDATA[Dishes and Equipment]]></title>
+	<container id="L01_intro">
+		<title language="en"><![CDATA[Introduction]]></title>
+		<page id="L01_005">
+			<data file="pages/DynamicPage.html">Introduction</data>
+			<param id="dataFile">data/L01_005.xml</param>
+		</page>
+	</container>	
+	<container id="L01a">	
+	<title language="en"><![CDATA[Dishes]]></title> 
+		<page id="L01_010" next="L01_015">
+			<data file="pages/DynamicPage.html">Dishes</data>
+			<param id="dataFile">data/L01_010.xml</param>
+		</page>
+		<page id="L01_010a" hidden="true" prev="L01_010" next="L01_010">
+			<data file="pages/DynamicPage.html">Cookware</data>
+			<param id="dataFile">data/L01_010a.xml</param>
+		</page>
+		<page id="L01_010b" hidden="true" prev="L01_010" next="L01_010c">
+			<data file="pages/DynamicPage.html">Glasses and Mugs</data>
+			<param id="dataFile">data/L01_010b.xml</param>
+		</page>
+		<page id="L01_010c" hidden="true" prev="L01_010" next="L01_010">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_010c.xml</param>
+		</page>
+		<page id="L01_010d" hidden="true" prev="L01_010" next="L01_010">
+			<data file="pages/DynamicPage.html">Plates and Bowls</data>
+			<param id="dataFile">data/L01_010d.xml</param>
+		</page>
+		<page id="L01_010e" hidden="true" prev="L01_010" next="L01_010f">
+			<data file="pages/DynamicPage.html">Silverware</data>
+			<param id="dataFile">data/L01_010e.xml</param>
+		</page>
+		<page id="L01_010f" hidden="true" prev="L01_010" next="L01_010">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_010f.xml</param>
+		</page>
+		<page id="L01_010g" hidden="true" prev="L01_010" next="L01_010">
+			<data file="pages/DynamicPage.html">Spatulas, Spoons, Tongs</data>
+			<param id="dataFile">data/L01_010g.xml</param>
+		</page>
+		<page id="L01_010h" hidden="true" prev="L01_010" next="L01_010i">
+			<data file="pages/DynamicPage.html">Other Kitchen Utensils</data>
+			<param id="dataFile">data/L01_010h.xml</param>
+		</page>
+		<page id="L01_010i" hidden="true" prev="L01_010" next="L01_015">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_010i.xml</param>
+		</page>
+		<page id="L01_015" prev="L01_010">
+			<data file="pages/DynamicPage.html">Dishes</data>
+			<param id="dataFile">data/L01_015.xml</param>
+		</page>
+		<page id="L01_020">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_020.xml</param>
+		</page>
+		<page id="L01_025">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_025.xml</param>
+		</page>
+		<page id="L01_030">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_030.xml</param>
+		</page>
+		<page id="L01_035">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_035.xml</param>
+		</page>
+		<page id="L01_040">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_040.xml</param>
+		</page>	
+		<page id="L01_045">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_045.xml</param>
+		</page>	
+		<page id="L01_050">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_050.xml</param>
+		</page>	
+		<page id="L01_055">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_055.xml</param>
+		</page>	
+		</container>	
+		 <container id="L01b">
+		 <title language="en"><![CDATA[Equipment]]></title> 
+		<page id="L01_060">
+			<data file="pages/DynamicPage.html">Equipment</data>
+			<param id="dataFile">data/L01_060.xml</param>
+		</page>	
+		<page id="L01_065">
+			<data file="pages/DynamicPage.html">Equipment</data>
+			<param id="dataFile">data/L01_065.xml</param>
+		</page>	
+		
+		<page id="L01_070">
+			<data file="pages/DynamicPage.html">Knowledge Check</data>
+			<param id="dataFile">data/L01_070.xml</param>
+		</page>	
+		</container>
+		<container id="L01c">
+		<title language="en"><![CDATA[Congratulations]]></title> 
+		<page id="Finished">
+			<data file="pages/DynamicPage.html">Congratulations</data>
+			<param id="dataFile">data/finished.xml</param>
+		</page>
+	</container>
+</course>

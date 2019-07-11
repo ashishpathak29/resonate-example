@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>click list</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		<script>
+			var pageContent;
+			var instructionHolder;
+			var imageHolder;
+			var textHolder;
+			var xmlData = new Array();
+			var initEvent;
+			var itemCaptions = new Array();
+		    var ani1 ;
+		    var itemAudio = null;
+		    var stemAudio = null;
+			$(document).ready(function()
+			{
+				
+				pageContent= new PageContent();
+				
+				enableNextButton(false);
+				
+				
+				imageHolder = pageContent.addChild(new ImageObj("imageHolder",500,120,400,300,Styles.image,""));
+				instructionHolder = pageContent.addChild(new TextArea("instructionHolder",50,30,new TextAreaStyle(480,30)));
+				instructionHolder.alpha(0);
+				
+				textHolder = pageContent.addChild(new TextArea("textHolder",450,320,new TextAreaStyle(480,30)));
+				textHolder.alpha(0);
+				ani1= pageContent.addChild( new EdgeAnimation("ani1",40,90,new EdgeStyle(350,400),"pages/clickExp.html"));
+				ani1.addListener("itemClick",function(e){
+					xmlData[parseInt(e.index)].viewed = true;
+					var done = true;
+					for (i=0;i<xmlData.length;i++)
+					{
+						if (!xmlData[i].viewed){done = false;}
+						
+						
+					}
+					if (done){
+						enableNextButton(true);
+						setPrompt(course.strings.prompt.clickNext[course.language]);
+						
+					}
+					
+					imageHolder.setCSS("opacity",0);
+					if ($("#itemAudioButton")){$("#itemAudioButton").remove();}
+					if (itemAudio!=null){itemAudio.stop();}
+					
+					pageContent.removeNonVisibleChild("itemAudio");
+					if (xmlData[parseInt(e.index)].image){
+						imageHolder.swapImage(xmlData[parseInt(e.index)].image.file);
+						imageHolder.setClass(xmlData[parseInt(e.index)].image.cssClass);
+						imageHolder.setCSS("left",parseInt(xmlData[parseInt(e.index)].image.x)*course.scale);
+						imageHolder.setCSS("top",parseInt(xmlData[parseInt(e.index)].image.y)*course.scale);
+						imageHolder.setCSS("width",parseInt(xmlData[parseInt(e.index)].image.width)+"px");
+						imageHolder.setCSS("height",parseInt(xmlData[parseInt(e.index)].image.height)+"px");
+						imageHolder.setCSS("opacity",1);
+					}else{
+						imageHolder.alpha(0);
+						
+					}
+					
+					
+					textHolder.setClass("textBoxLeft");
+					textHolder.setCSS("left",parseInt(xmlData[parseInt(e.index)].text.x)*course.scale);
+					textHolder.setCSS("top",parseInt(xmlData[parseInt(e.index)].text.y)*course.scale);
+					textHolder.setCSS("width",parseInt(xmlData[parseInt(e.index)].text.width) + "px");
+					textHolder.setCSS("height",parseInt(xmlData[parseInt(e.index)].text.height) + "px");
+					console.log("height");
+					console.log(xmlData[parseInt(e.index)].text);
+					textHolder.setCSS("overflow","auto");
+					textHolder.setText(xmlData[parseInt(e.index)].text.value);
+					
+					console.log("xmlData[parseInt(e.index)].text.value");
+					console.log(xmlData[parseInt(e.index)].text.value);
+					//console.log(xmlData[parseInt(e.index)].image.file);
+					if (xmlData[parseInt(e.index)].image!= undefined){
+					
+						if (imageHolder.alpha() == 0){
+						  Animation.fadeIn(imageHolder);
+						  Animation.fadeIn(textHolder);
+						}else{
+							textHolder.alpha(1);
+							imageHolder.alpha(1);
+						}
+					
+					}else{
+						
+						textHolder.alpha(1);
+						imageHolder.alpha(0);
+					}
+					if (xmlData[parseInt(e.index)].audio)
+					{
+						itemAudio = pageContent.addAudio("itemAudio", xmlData[parseInt(e.index)].audio.file);
+						pageContent.addAudioButton(itemAudio,"itemAudioButton",xmlData[parseInt(e.index)].audio.cssClass,xmlData[parseInt(e.index)].audio.pos);
+						
+					}
+					
+					if (xmlData[parseInt(e.index)].image==undefined){imageHolder.setCSS("opacity",0);}
+					
+				});
+				ani1.addListener("onLoaded",function(e){
+					initEvent = e;
+					loadListXML(course.page.getParam("listFile",course.language));
+				});
+				
+				//setPrompt("Click each item to learn more");
+				setPrompt(course.strings.prompt.clickEachItem[course.language]);
+			});
+			
+			function loadListXML(file)
+			{
+				 $.ajax({
+			         type: "GET",
+			         url: file,
+			         dataType: "xml",
+			         context:this,
+			         success: parseListXML
+			        });
+			}// end function
+			
+			function parseListXML(xml)
+			{
+				console.log(xml);
+				var baseNode = $(xml).find("list");
+				var node;
+				
+				ani1.setHeight(baseNode.attr("height") + "px");
+				ani1.setCSS("left",(baseNode.attr("x")*course.scale)+ "px");
+				ani1.setCSS("top",(baseNode.attr("y")*course.scale)+ "px");
+				 for (i=0;i<$(baseNode).children().length;i++)
+       			 {
+            		node = $($(baseNode).children()[i]).get(0);
+            		console.log(node);
+           		    console.log(node.nodeName);
+           		    switch(node.nodeName){
+	           		    case "item":
+	           		    	parseItemXML(node);
+	           		    break;
+	           		    case "image":
+	           		    	imageHolder.swapImage($(node).text());
+							imageHolder.setCSS("left",($(node).attr("x")*course.scale)+ "px");
+							imageHolder.setCSS("top",($(node).attr("y")*course.scale)+ "px");
+							imageHolder.setCSS("width",$(node).attr("width")+ "px");
+							imageHolder.setCSS("height",$(node).attr("height")+ "px");
+							imageHolder.setClass($(node).attr("class"));
+							Animation.fadeIn(imageHolder);
+	           		    break;
+	           		    case "text":
+	       					instructionHolder.setText($(node).text());
+	       					instructionHolder.setClass("textBoxLeft");
+	           		    	instructionHolder.setCSS("left",($(node).attr("x"))+ "px");
+							instructionHolder.setCSS("top",($(node).attr("y"))+ "px");
+							instructionHolder.setCSS("width",$(node).attr("width")+ "px");
+							if ($(node).attr("height")){
+							instructionHolder.setCSS("height",$(node).attr("height")+ "px");
+							}else{
+								
+								instructionHolder.setCSS("height", "180px");
+							}
+							//scaleDiv(instructionHolder,{left:instructionHolder.left,top:instructionHolder.top});
+							pageContent.refreshStage();
+							Animation.fadeIn(instructionHolder);
+	           		    break;
+	           		    case "audio":
+	           		    	stemAudio = pageContent.addAudio("stemAudio",$(node).text());
+	           		    	pageContent.addAudioButton(stemAudio,"stemAudioButton",$(node).attr("class"),{x:parseInt($(node).attr("x")) ,y:parseInt($(node).attr("y"))});
+	           		    
+	           		    break;
+           		    }// end switch
+				}
+				pageContent.refreshStage();
+				initEvent.callBack(itemCaptions,initEvent.edgeSymbol);
+			}// end function
+			
+			function parseItemXML(xml)
+			{
+				var itemData = new Object();
+				
+				var i;
+				for (i=0;i<$(xml).children().length;i++){
+					
+					node = $($(xml).children()[i]).get(0);
+					console.log(node);
+					itemData.viewed = false;
+					switch (node.nodeName){
+						case "caption":
+							itemData.caption = $(node).text();
+							itemCaptions.push(itemData.caption);
+						break;
+						case "image":
+							itemData.image = new Object();
+							itemData.image.file = $(node).text();
+							itemData.image.x = $(node).attr("x");
+							itemData.image.y = $(node).attr("y");
+							itemData.image.width = $(node).attr("width");
+							itemData.image.height = $(node).attr("height");
+							itemData.image.cssClass = $(node).attr("class");
+						break;
+						case "text":
+							itemData.text = new Object()
+							itemData.text.value = $(node).text();
+							itemData.text.x = $(node).attr("x");
+							itemData.text.y = $(node).attr("y");
+							itemData.text.width = $(node).attr("width");
+							itemData.text.height = $(node).attr("height");
+							if (itemData.text.x == null){itemData.text.x = 450; }
+							if (itemData.text.y == null){itemData.text.y = 320; }
+							if (itemData.text.width == null){itemData.text.width = 480; }
+							if (itemData.text.height == null){itemData.text.height = 190; }
+						break;
+						case "audio":
+							itemData.audio = new Object();
+							itemData.audio.file = $(node).text();
+							itemData.audio.pos = new Object();
+							itemData.audio.pos.x = $(node).attr("x");
+							itemData.audio.pos.y =$(node).attr("y");
+							itemData.audio.cssClass = $(node).attr("class");
+							if (itemData.audio.cssClass == null){itemData.audio.cssClass = "audioBtn";} 
+
+						break;						
+					}// end switch
+					console.log(itemData);
+				}// end for
+				
+					
+					xmlData.push(itemData);
+				
+			}// end function
+			
+			
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

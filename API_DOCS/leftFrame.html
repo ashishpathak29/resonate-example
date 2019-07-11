@@ -1,0 +1,120 @@
+<html>
+	<head>
+		<script src="js/jquery-2.1.0.min.js" type="text/javascript"></script>
+  <script src="js/jquery-ui.custom.js" type="text/javascript"></script>
+  <script src="js/jquery.fancytree.min.js" type="text/javascript"></script>
+  <link href="css/skin-lion/ui.fancytree.css" rel="stylesheet" type="text/css">
+		 <script type="text/javascript">
+		 
+		
+    $(function(){
+    	
+     var obj =[{title:"animation", folder:true, children:[
+{title:"AnimationEngine", data:{page:"pages/AnimationEngine.html"}}
+]},{title:"audio", folder:true, children:[
+{title:"SoundEx", data:{page:"pages/SoundEx.html"}}
+]},{title:"components", folder:true, children:[
+{title:"Accordion", data:{page:"pages/Accordion.html"}},
+{title:"CanvasEx", data:{page:"pages/CanvasEx.html"}},
+{title:"CheckBox", data:{page:"pages/CheckBox.html"}},
+{title:"Dialog", data:{page:"pages/Dialog.html"}},
+{title:"Distractor", data:{page:"pages/Distractor.html"}},
+{title:"DivObj", data:{page:"pages/DivObj.html"}},
+{title:"EdgeAnimation", data:{page:"pages/EdgeAnimation.html"}},
+{title:"ImageObj", data:{page:"pages/ImageObj.html"}},
+{title:"PageContent", data:{page:"pages/PageContent.html"}},
+{title:"ShapeBase", data:{page:"pages/ShapeBase.html"}},
+{title:"Slider", data:{page:"pages/Slider.html"}},
+{title:"StandardButton", data:{page:"pages/StandardButton.html"}},
+{title:"SVG", data:{page:"pages/SVG.html"}},
+{title:"SWF", data:{page:"pages/SWF.html"}},
+{title:"TextArea", data:{page:"pages/TextArea.html"}},
+{title:"UIComponentBase", data:{page:"pages/UIComponentBase.html"}},
+{title:"Video", data:{page:"pages/Video.html"}}
+]},{title:"data", folder:true, children:[
+{title:"KeyCollection", data:{page:"pages/KeyCollection.html"}},
+{title:"Trigger", data:{page:"pages/Trigger.html"}},
+{title:"Triggers", data:{page:"pages/Triggers.html"}}
+]},{title:"events", folder:true, children:[
+{title:"EventDispatcher", data:{page:"pages/EventDispatcher.html"}}
+]},{title:"interaction", folder:true, children:[
+{title:"Feedback", data:{page:"na.html"}},
+{title:"PoolQuestion", data:{page:"na.html"}},
+{title:"FeedbackDisplay", data:{page:"na.html"}},
+{title:"MultipleChoiceDisplay", data:{page:"na.html"}},
+{title:"SequenceDisplay", data:{page:"na.html"}},
+{title:"MultipleChoiceDistractor", data:{page:"na.html"}},
+{title:"MultipleChoiceQuestion", data:{page:"na.html"}},
+{title:"SequenceQuestion", data:{page:"na.html"}},
+{title:"SequenceStep", data:{page:"na.html"}},
+{title:"QuestionPool", data:{page:"na.html"}}
+,{title:"questionPool", folder:true, children:[
+{title:"Feedback", data:{page:"na.html"}},
+{title:"PoolQuestion", data:{page:"na.html"}},
+{title:"FeedbackDisplay", data:{page:"na.html"}},
+{title:"MultipleChoiceDisplay", data:{page:"na.html"}},
+{title:"SequenceDisplay", data:{page:"na.html"}},
+{title:"MultipleChoiceDistractor", data:{page:"na.html"}},
+{title:"MultipleChoiceQuestion", data:{page:"na.html"}},
+{title:"SequenceQuestion", data:{page:"na.html"}},
+{title:"SequenceStep", data:{page:"na.html"}},
+{title:"QuestionPool", data:{page:"na.html"}}
+,{title:"quesitonTypes", folder:true, children:[
+{title:"FeedbackDisplay", data:{page:"na.html"}},
+{title:"MultipleChoiceDisplay", data:{page:"na.html"}},
+{title:"SequenceDisplay", data:{page:"na.html"}},
+{title:"MultipleChoiceDistractor", data:{page:"na.html"}},
+{title:"MultipleChoiceQuestion", data:{page:"na.html"}},
+{title:"SequenceQuestion", data:{page:"na.html"}},
+{title:"SequenceStep", data:{page:"na.html"}}
+,{title:"display", folder:true, children:[
+{title:"FeedbackDisplay", data:{page:"na.html"}},
+{title:"MultipleChoiceDisplay", data:{page:"na.html"}},
+{title:"SequenceDisplay", data:{page:"na.html"}}
+]},
+]},
+]},
+]},{title:"language", folder:true, children:[
+{title:"Language", data:{page:"pages/Language.html"}},
+{title:"Languages", data:{page:"pages/Languages.html"}}
+]},{title:"logic", folder:true, children:[
+{title:"DragDrop", data:{page:"na.html"}},
+{title:"MultipleChoice", data:{page:"na.html"}}
+]},{title:"structure", folder:true, children:[
+{title:"Container", data:{page:"pages/Container.html"}},
+{title:"Course", data:{page:"pages/Course.html"}},
+{title:"Page", data:{page:"pages/Page.html"}}
+]},{title:"tracking", folder:true, children:[
+{title:"ScormAPI", data:{page:"pages/ScormAPI.html"}},
+{title:"TrackingAPI", data:{page:"pages/TrackingAPI.html"}}
+]},{title:"utils", folder:true, children:[
+{title:"FileSystemAPI", data:{page:"na.html"}},
+{title:"Preloader", data:{page:"na.html"}},
+{title:"Timer", data:{page:"na.html"}},
+{title:"XMLUtils", data:{page:"na.html"}}
+]}];
+      // using default options
+      $("#tree").fancytree({
+      	source:obj,
+      	click: function(event, data){
+	 		
+	 		
+	 		if (!data.node.folder){
+    			console.log(data.node.data.page);
+    			top.frames["mainFrame"].location = (data.node.data.page);
+    		}
+      	}
+      });
+    });
+  </script>
+	</head>
+	<body style="background-color:#aaaaaa">
+		
+   <div id="tree">
+   
+  </div>
+		
+		
+	</body>	
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Accordion</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+	
+		<script>
+			var pageContent;
+			var accordion;
+			var audioList = new Array();
+			
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				audioList.push(pageContent.addAudio("slide0Audio","audio/E_Shift_Setup_01.mp3"));
+				audioList.push(pageContent.addAudio("slide1Audio","audio/E_Shift_Setup_02.mp3"));
+				audioList.push(pageContent.addAudio("slide2Audio","audio/E_Shift_Setup_03.mp3"));
+				audioList.push(pageContent.addAudio("slide3Audio","audio/E_Shift_Setup_04.mp3"));
+				audioList.push(pageContent.addAudio("slide3Audio","audio/E_Shift_Setup_05.mp3"));
+				audioList.push(pageContent.addAudio("slide3Audio","audio/E_Shift_Setup_06.mp3"));
+				//accordion = pageContent.addChild(new Accordion("accordion",450,100,"#accordion",new AccordionStyle(550,250,{heightStyle:"fill",overflow:"none"})));	
+				accordion = new Accordion("accordion",0,0,"#accordion",new AccordionStyle(650,250,{heightStyle:"fill",overflow:"none", attachTo:"#accordionSizer"}));	
+				accordion.addListener("onChange",function(e){
+					pageContent.stopAllAudio();
+					
+					
+				});
+				accordion.addListener("onComplete",function(e){
+					console.log(e);
+					setPrompt("Click next to continue");
+					enableNextButton(true);
+				});
+				pageContent.attachDiv("#textBlock");
+				pageContent.refreshStage();
+				setPrompt("Read each item");
+				enableNextButton(false);
+				$( "#accordion" ).accordion( "refresh" );
+			});
+			
+			function playTabAudio(index)
+			{
+				// play/pause the selected audio file
+				audioList[index].togglePlay();
+			}// end function
+			
+		</script>
+	</head>
+
+	<body>
+	<div id="accordionSizer" style="height: 420px; top:70px; left:320px; position: absolute"></div>
+	<div id="accordion" >
+	<h3>Prepare The Grill</h3>
+	  <div>
+	  	<p>Wipe the surface of all three grills with a clean towel to remove any dust. Turn on all three sections and set each thermostat to the correct temperature:</p>
+		<ul>
+		<li>Egg grill: 225°F</li>
+		<li>Meatgrill:400°F </li>
+		<li>Pancake grill: 400°F</li>
+		</ul>
+		<p>Pour vegetable oil on each grill and scrub with a grill screen. Rub back and forth with the grain of the grill. Wipe each surface with a clean, dry towel to remove loose particles. With a clean towel, rub oil on the cooking surface of the grills.</p>
+	    <div id="audioButton" class="audioBtn audioBtnAccordion" onclick="playTabAudio(0);"></div>
+	  </div>
+	   <h3>Prepare The Steamline</h3>
+	  <div>
+	  	<p>If you are working the opening shift, you need to do the following before 6:00 a.m:</p>
+		<ul>
+		<li>Fill the steamline with about 2 inches of water. The empty pans should float slightly.</li>
+		<li>Set the thermostat on the steamline to between 160°F and 170°F.</li>
+		<li>Get pans of gravy, grits, hashbrown casserole and fried apples from the backup cook and place them on the steamline. Always tell the backup cook when you take anything from the hotbox.</li>
+		<li>Cover any wells not being used with lids.</li>
+		</ul>
+		<p>You and the backup cook must make sure the steamline is set up and ready for lunch no later than 11:00 a.m. Don't set it up too early - 10:30 or 10:45 is a good time.</p>
+	    <div id="audioButton" class="audioBtn audioBtnAccordion" onclick="playTabAudio(1);"></div>
+	  </div>
+	  <h3>Prepare The Fryers</h3>
+	  <div>
+	  	<p>Turn fryers on and set the temperature to 350°F. When the correct temperature is reached, check the level of the oil. If necessary, add vegetable oil to the fill line. Oil expands as it is heated. If you add oil before it has reached the correct temperature, the oil could overflow</p>
+	    <div id="audioButton" class="audioBtn audioBtnAccordion" onclick="playTabAudio(2);"></div>
+	  </div>
+
+	   
+	  <h3>Check Temperatures</h3>
+	  <div>
+	    <p>You need to check the temperatures of the coolers, freezers, and the hotbox as you use them.</p>
+		<ul>
+		<li>All coolers should be set between 34°F to 38°F.</li>
+		<li>All freezers, except the ice cream freezer, should be between -10°F and 0°F. The ice cream freezer should be between 0°F and 2°F.</li>
+		<li>Hotbox thermometers should read between 160"F and 170°F.</li>
+		</ul>
+		<p>Once a month, check the temperature of each section of the grill by placing a surface thermometer on the grill. If the temperature does not match the thermostat exactly, notify your Manager. The thermostat may need to be recalibrated.</p>
+	    <div id="audioButton" class="audioBtn audioBtnAccordion" onclick="playTabAudio(3);"></div>
+	  </div>
+	  <h3>Prepare Pancake Batter</h3>
+	  <div>
+	    <p>Before the first Guest arrives, you need to mix the pancake batter. Always use the recipe when mixing pancake batter. Be sure to allow the pancake batter to rise before you use it. If you don't, your pancakes won't rise on the grill and will be dense.</p>
+	    <div id="audioButton" class="audioBtn audioBtnAccordion" onclick="playTabAudio(4);"></div>
+	  </div>
+	  <h3>Check Your Stock</h3>
+	  <div>
+	    <p>Check the amount of each item you have in the reach-in coolers and the walk-in cooler. Count the products and compare your count with the pull chart. Remember, the pull chart tells you how much of each product you should have on hand each day of the week.</p>
+		<p>As you count the products, check the quality and the labels to see how long the products have been thawed. Notify your Manager if any product does not look its best.</p>
+	    <div id="audioButton" class="audioBtn audioBtnAccordion" onclick="playTabAudio(5);"></div>
+	  </div>
+	  
+	</div>
+	
+	<div id="textBlock" class="textBoxLeft" style="width:200px">
+			<p>Click through each item in the list to learn more about preparing for you shift.</p>
+
+		</div>	
+	</body>
+</html>		

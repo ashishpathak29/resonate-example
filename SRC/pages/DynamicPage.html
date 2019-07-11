@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		
+	</head>
+		<script>
+
+			var pageContent;
+			var dynPage;
+			
+			preload = true; // global variable to determine if a page is waiting on files to preload. if true the loading animation will show
+			
+			// when the document is done loading and is ready to execute
+			$(document).ready(function()
+			{
+				// create the pageContent object and listen for the preloadComplete event
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				
+				// get the xml file to load from the manifest
+				var xmlFile = course.page.getParam("dataFile",course.language);
+				console.log("Load dynamic page " + xmlFile);
+				dynPage = new DynamicPage(xmlFile,pageContent,handleXMLLoaded);
+				
+			
+			});
+			
+			// handle the xml file being loaded
+			function handleXMLLoaded(e)
+			{	console.log("xml Loaded");
+				var mediaList = dynPage.getMediaList();
+				var i;
+				for (i=0;i<mediaList.length;i++)
+				{
+					
+					
+					if (mediaList[i].indexOf(".js")){
+						
+						pageContent.addPreloadFile(FileSystem.getURI(mediaList[i]),"TEXT");// add the files
+					}else{
+					
+						pageContent.addPreloadFile(FileSystem.getURI(mediaList[i]));// add the files
+					}
+				}
+				pageContent.preloadFiles();// load the files and wait for the event
+			}// end function
+			// handle the files being done preloading
+			function handlePreloadComplete(e)
+			{
+				console.log("preload complete");
+				dynPage.renderPage();
+				enableNextButton(false);
+				showPreloader(false);
+			}//end function
+			
+			
+		</script>
+	<body>
+	</body>
+</html>

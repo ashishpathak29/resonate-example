@@ -1,0 +1,496 @@
+<cb:Page xmlns:cb="http://www.crackerbarrel.com/resonate">
+	<cb:CSS><![CDATA[
+		
+		.dragBox
+		{
+			z-index:100;
+			border-radius: 5px;
+			background:#f48c04;
+			font-size:12pt;
+			color:white;
+			text-align:center;
+			line-height:2.5;
+		}
+		.dropBox
+		{
+			
+			border-radius: 20px;
+			border-style: solid;
+    		border-width: 5px;
+			border-color:#85beea;
+			background-color:rgba(255,255,255,0.3);
+			overflow:hidden;
+		}	
+	
+		.pointsLabel
+		{
+			color:#FFFFFF;
+			font-size:1.3rem;
+			text-align:center;
+		
+		}
+		
+		.clickBtn, .clickBtnDisabled,.clickBtnSelected,.clickBtnSelectedDisabled {
+			 border-style:solid;
+			 border-width:3px;
+			 border-color:#000000;
+		 	 border-radius: 10px;
+   			 background: #F0A138;
+             padding: 0px; 
+           
+			color: #000;
+			font-family:arial;
+			font-size:1.1rem;
+			font-weight:bold;
+			text-decoration:none;
+			text-align:center;
+			cursor:"pointer";
+		}
+		
+		.clickBtnDisabled{
+			opacity:0.6;
+			cursor:"default";
+		}
+		
+		
+		.clickBtnSelected,.clickBtnSelected:hover,.clickBtnSelectedDisabled{
+			background: #00AA00;
+		}
+		
+		.clickBtn:hover{
+		
+			background: #8E5C1A;
+		}
+		.clickBtn{
+		cursor:pointer !important;
+		}
+	
+	]]></cb:CSS>
+	<cb:Script><![CDATA[
+
+
+		var dragCount = 5; // keep track of the number of draggable items
+		var targetCount = 5; // keep track of the number of targets
+		var correct = [0,4,3,2,1]; // change as needed to match index of drag item
+		var attempt = 0; // keep track of the current attempt
+		var points = [10,5,0]; // point values by attempt
+		var userPoints = 0; // current number of points
+		if (course.sessionData.kc0 == undefined){course.sessionData.kc0 = [0,0,0,0,0,0,0,0];}
+	
+		// loop through and enable/disable the draggable items
+		function enableDragItems(val)
+		{
+			if (val == undefined){val = true;}
+			var i;
+			for (i=0;i<dragCount;i++)
+			{	
+				// get a jquery friendly version of our object by using .divObject
+				dynPage.getObject("drag" + i).divObject.draggable( val?"enable":"disable");
+			}//end for
+		}// end function
+	
+		// check and see if the drabbable items have all been placed in a target
+		function allPlaced()
+		{
+			return (getPlaced().indexOf(-1) == -1);
+		}// end function
+		
+		
+		// Determines if the submit button should be active / displayed
+		function updateSubmitBtn()
+		{
+			var active = allPlaced();
+			var btn = dynPage.getObject("submitBtn");
+			btn.setEnabled(active);
+			btn.setCSS("display",attempt<=1?"block":"none");
+			btn.setClass(active?"clickBtn":"clickBtnDisabled");
+		}
+		
+		// figure out if we are on a target that accepts the item
+		// for this page, all targets accept all dropped items
+		function checkDropAccept(target,dropItem)
+		{
+			return (target != null);
+		}// end function
+		
+		// check to see if the item dropped should be rejected.
+		function checkReject(sender,target)
+		{
+			// always return false from this function. We will handle the actual rejection in our custom events.
+			// if we are on the target or not
+			if (target == false){
+				sender.dispatch("onReject",{});
+			}else{
+				sender.dispatch("onAccept",{target:dynPage.getObject(target.context.id)});
+			}// end if
+			return false;
+		}// end function
+		
+		// snap a draggable item back to it's starting position.
+		function snapBack(obj)
+		{
+			var i;
+			// loop through and remove the item we are moving from any target's currentItem property
+		 	for (i=0;i<targetCount;i++)
+		 	{
+		 		if (dynPage.getObject("drop" + i).currentItem == obj)
+		 		{
+		 			dynPage.getObject("drop" + i).currentItem = null;
+		 		
+		 		}//end if
+		 	}// end for
+		 	
+		 	// update the submit button's state
+			updateSubmitBtn();
+			// move it back to where it started
+			Animation.moveTo(obj,dynPage.getObjectParams(obj.id).x,dynPage.getObjectParams(obj.id).y,500);
+		}// end function
+	
+		// move all draggable items to their correct location
+		function placeInCorrectTargets()
+		{
+			var i;
+			var x;
+			var y;
+			// loop through and see where each item belongs.
+			for (i=0;i<correct.length;i++)
+			{
+				x = dynPage.getObject("drop" + i).left + 5;
+				y = dynPage.getObject("drop" + i).top + 106;
+				// move it
+				Animation.moveTo(dynPage.getObject("drag" + correct[i]),x,y,800);
+			}// end for		
+		}// end function
+		
+		
+		// when an item starts to be dragged, move it to a higher z-index
+		function handleStartDrag(sender,event)
+		{
+			
+			var i;
+			// reset all drag items
+			for (i=0;i<dragCount;i++)
+			{	
+				dynPage.getObject("drag"+i).setCSS("z-index",5);
+			}
+			// move the one that is being dragged to the top
+			sender.setCSS("z-index",500);
+		}// end function
+		
+		// handle a rejection by moving it back to where it started.
+		function handleDropReject(event){
+			snapBack(event.sender);	
+		}// end function
+		
+		// handle the acceptence of a dropped item on a target
+		function handleDropAccept(event){
+			// get the target location and use it to figure out the new location of our dropped item
+			var newX = event.target.left+5;
+			var newY = event.target.top+106;
+			
+			var i;
+			
+			// change the z-index back
+			event.sender.setCSS("z-index",5);
+			
+			// see if there is something there now
+			if (event.target.currentItem != null && event.target.currentItem!= event.sender)
+			{
+				snapBack(event.target.currentItem);
+			}
+			// move the drop item
+			Animation.moveTo(event.sender,newX,newY,100);
+			
+			// clear it out of any target and then reset it
+			for (i=0;i<targetCount;i++)
+			{
+				if (dynPage.getObject("drop" + i).currentItem == event.sender)
+				{
+					dynPage.getObject("drop" + i).currentItem = null;
+				}
+			}
+			event.target.currentItem = event.sender;
+			updateSubmitBtn();
+		}// end function
+		
+		
+		// get an array of all placed items
+		function getPlaced()
+		{
+			var result = new Array();
+			for (i=0;i<targetCount;i++)
+			{	
+				// see if the target has an item on it, if so store it
+				if (dynPage.getObject("drop" + i).currentItem == null){
+					result[i] = -1;
+				}else{
+					result[i] = parseInt(dynPage.getObject("drop" + i).currentItem.id.substr(4));
+				}// end if
+			}// end for
+			return result;
+		}// end function
+		
+		
+		// judge the state of the items/targets and see if it matches the correct array
+		function judge()
+		{
+			
+			var isCorrect = true;
+			// get an array of what is placed where
+			var user = getPlaced();
+			course.sessionData.kc0[6] = userPoints;
+			var i;
+			++attempt; // increment the attempt count.
+			// comare the correct array to the placed array
+			if (correct.toString() == getPlaced().toString()){
+				// it's correct, shut off the submit button
+				dynPage.getObject("submitBtn").setCSS("display","none");
+				// figure out the points based on the attempt.
+				userPoints = (attempt == 1?10:5);
+				course.sessionData.kc0[6] = userPoints;
+				// update the label on the table
+				// update the label on the table
+				dynPage.getObject("table.label").setText(dynPage.refreshValue("table.label"));
+				// show a plate for each point
+				for (i=0;i<userPoints;i++)
+				{
+					Animation.fadeIn(dynPage.getObject("table.plate"+i),200,1,(i*200));
+				
+				}
+				// stop items from being draggable
+				enableDragItems(false);
+				// set the prompt and enable the button
+			 	setPrompt("That’s correct! Click Next to continue");
+			 	enableNextButton(true);
+			 }else{
+			 	// was incorrect, let's figure out which attempt they are on
+			 	if (attempt<=1){
+			 		// first attempt, update prompt and send all items back to start
+			 		setPrompt("<font size='3px'>One or more of your answers are incorrect. Please try again.</font>");
+			 		for (i=0;i<dragCount;i++)
+			 		{
+			 			snapBack(dynPage.getObject("drag"+i));
+			 		}// end for
+			 	}else{
+			 		// second attempt
+			 		// hide the submit button, disable the drag items and move them to the correct location
+			 		dynPage.getObject("submitBtn").setCSS("display","none");
+			 		enableDragItems(false);
+			 		placeInCorrectTargets();
+			 		// update prompt and enable next
+			 		setPrompt("Incorrect, the correct answers are shown.");
+			 		enableNextButton(true);
+			 	}// end if
+			 }// end if
+		}// end function
+		
+	]]></cb:Script>
+
+	<cb:Event name="onPageLoad">
+		<cb:Script><![CDATA[
+			setPrompt(course.strings.prompt.completeInteraction[course.language]);
+		
+		]]></cb:Script>
+	</cb:Event>	
+	
+	<cb:Div id="drag0" x="80" y="80" width="150" height="40" cssClass="dragBox" cursor="pointer" opacity="0">
+		<cb:Value><![CDATA[Mixing Bowls]]></cb:Value>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+					self.divObject.draggable({containment:"parent",
+					cursor: "pointer",
+					revert: function (target){return checkReject(self,target);},
+					start:function (event){handleStartDrag(self,event);}
+				});
+			]]></cb:Script>
+		</cb:Event>
+		<cb:Event name="onReject"><cb:Script><![CDATA[handleDropReject(event);]]></cb:Script></cb:Event>
+		<cb:Event name="onAccept"><cb:Script><![CDATA[handleDropAccept(event);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="drag1" x="@=dynPage.getObjectParams('drag0').x" y="@=dynPage.getObjectParams('drag0').y + 55" width="@=dynPage.getObjectParams('drag0').width" height="@=dynPage.getObjectParams('drag0').height" cssClass="dragBox"  opacity="0" cursor="pointer">
+		<cb:Value><![CDATA[Salad Bowl]]></cb:Value>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+					self.divObject.draggable({containment:"parent",
+					cursor: "pointer",
+					revert: function (target){return checkReject(self,target);},
+					start:function (event){handleStartDrag(self,event);}
+				});
+			]]></cb:Script>
+		</cb:Event>
+		<cb:Event name="onReject"><cb:Script><![CDATA[handleDropReject(event);]]></cb:Script></cb:Event>
+		<cb:Event name="onAccept"><cb:Script><![CDATA[handleDropAccept(event);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="drag2" x="@=dynPage.getObjectParams('drag0').x" y="@=dynPage.getObjectParams('drag1').y + 55" width="@=dynPage.getObjectParams('drag0').width" height="@=dynPage.getObjectParams('drag0').height" cssClass="dragBox"  opacity="0" cursor="pointer">
+		<cb:Value><![CDATA[Meatloaf Spatula]]></cb:Value>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+					self.divObject.draggable({containment:"parent",
+					cursor: "pointer",
+					revert: function (target){return checkReject(self,target);},
+					start:function (event){handleStartDrag(self,event);}
+				});
+			]]></cb:Script>
+		</cb:Event>
+		<cb:Event name="onReject"><cb:Script><![CDATA[handleDropReject(event);]]></cb:Script></cb:Event>
+		<cb:Event name="onAccept"><cb:Script><![CDATA[handleDropAccept(event);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="drag3" x="@=dynPage.getObjectParams('drag0').x" y="@=dynPage.getObjectParams('drag2').y + 55" width="@=dynPage.getObjectParams('drag0').width" height="@=dynPage.getObjectParams('drag0').height" cssClass="dragBox"  opacity="0" cursor="pointer">
+		<cb:Value><![CDATA[Strainer]]></cb:Value>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+					self.divObject.draggable({containment:"parent",
+					cursor: "pointer",
+					revert: function (target){return checkReject(self,target);},
+					start:function (event){handleStartDrag(self,event);}
+				});
+			]]></cb:Script>
+		</cb:Event>
+		<cb:Event name="onReject"><cb:Script><![CDATA[handleDropReject(event);]]></cb:Script></cb:Event>
+		<cb:Event name="onAccept"><cb:Script><![CDATA[handleDropAccept(event);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="drag4" x="@=dynPage.getObjectParams('drag0').x" y="@=dynPage.getObjectParams('drag3').y + 55" width="@=dynPage.getObjectParams('drag0').width" height="@=dynPage.getObjectParams('drag0').height" cssClass="dragBox"  opacity="0" cursor="pointer">
+		<cb:Value><![CDATA[Large Trays]]></cb:Value>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+					self.divObject.draggable({containment:"parent",
+					cursor: "pointer",
+					revert: function (target){return checkReject(self,target);},
+					start:function (event){handleStartDrag(self,event);}
+				});
+			]]></cb:Script>
+		</cb:Event>
+		<cb:Event name="onReject"><cb:Script><![CDATA[handleDropReject(event);]]></cb:Script></cb:Event>
+		<cb:Event name="onAccept"><cb:Script><![CDATA[handleDropAccept(event);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="drop0" x="380" y="40" width="150" height="145" cssClass="dropBox">
+		<cb:Image id="image" x="0" y="0" width="150" height="150" >
+			<cb:Value><![CDATA[images/slide_19/M2S3_MixingBowls.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Div id="footer" x="0" y="100" width="150" height="45" background="#f48c04" border-radius="5px" z-index="2" />
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+				self.divObject.droppable({
+					tolerance:"pointer",
+					drop:null,
+					accept:function(dragItem){return checkDropAccept(self,dragItem);}
+				});
+				self.currentItem = null;
+			]]></cb:Script>
+		</cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="drop1" x="@=dynPage.getObjectParams('drop0').x + dynPage.getObjectParams('drop0').width + 40" y="@=dynPage.getObjectParams('drop0').y" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height" cssClass="dropBox">
+		<cb:Image id="image" x="0" y="0" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height - 40" >
+			<cb:Value><![CDATA[images/slide_19/M2S3_LargeTray.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Div id="footer" x="0" y="@=dynPage.getObjectParams('drop0').height - 45 " width="@=dynPage.getObjectParams('drop0').width" height="45" background="#f48c04" border-radius="5px" z-index="2"/>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+				self.divObject.droppable({
+					tolerance:"pointer",
+					drop:null,
+					accept:function(dragItem){return checkDropAccept(self,dragItem);}
+				});
+				self.currentItem = null;
+			]]></cb:Script>
+		</cb:Event>
+	</cb:Div>	
+	
+	<cb:Div id="drop2" x="@=dynPage.getObjectParams('drop1').x + dynPage.getObjectParams('drop0').width + 40" y="@=dynPage.getObjectParams('drop0').y" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height" cssClass="dropBox">
+		<cb:Image id="image" x="0" y="0" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height - 45" >
+			<cb:Value><![CDATA[images/slide_19/M2S10_Strainer.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Div id="footer" x="0" y="@=dynPage.getObjectParams('drop0').height - 45 " width="@=dynPage.getObjectParams('drop0').width" height="45" background="#f48c04" border-radius="5px" z-index="2"/>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+				self.divObject.droppable({
+					tolerance:"pointer",
+					drop:null,
+					accept:function(dragItem){return checkDropAccept(self,dragItem);}
+				});
+				self.currentItem = null;
+			]]></cb:Script>
+		</cb:Event>
+	</cb:Div>	
+
+	<cb:Div id="drop3" x="@=dynPage.getObjectParams('drop0').x" y="@=dynPage.getObjectParams('drop0').y + dynPage.getObjectParams('drop0').height + 25" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height" cssClass="dropBox">
+		<cb:Image id="image" x="0" y="0" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height - 45" >
+			<cb:Value><![CDATA[images/slide_19/M2S9_MeatloafSpatula.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Div id="footer" x="0" y="@=dynPage.getObjectParams('drop0').height - 45 " width="@=dynPage.getObjectParams('drop0').width" height="45" background="#f48c04" border-radius="5px" z-index="2"/>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+				self.divObject.droppable({
+					tolerance:"pointer",
+					drop:null,
+					accept:function(dragItem){return checkDropAccept(self,dragItem);}
+				});
+				self.currentItem = null;
+			]]></cb:Script>
+		</cb:Event>
+	</cb:Div>	
+	
+	<cb:Div id="drop4" x="@=dynPage.getObjectParams('drop1').x" y="@=dynPage.getObjectParams('drop3').y" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height" cssClass="dropBox">
+		<cb:Image id="image" x="0" y="0" width="@=dynPage.getObjectParams('drop0').width" height="@=dynPage.getObjectParams('drop0').height - 45" >
+			<cb:Value><![CDATA[images/slide_19/M2S6_SaladBowl.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Div id="footer" x="0" y="@=dynPage.getObjectParams('drop0').height - 45 " width="@=dynPage.getObjectParams('drop0').width" height="45" background="#f48c04" border-radius="5px" z-index="2"/>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+				self.divObject.droppable({
+					tolerance:"pointer",
+					drop:null,
+					accept:function(dragItem){return checkDropAccept(self,dragItem);}
+				});
+				self.currentItem = null;
+			]]></cb:Script>
+		</cb:Event>
+	</cb:Div>	
+	<cb:Div id="table" x="410" y="430" width="100" height="100">
+		<cb:Image id="img" x="0" y="-43" width="307" height="154">
+			<cb:Value><![CDATA[images/table.png]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="plate0" x="40" y="-10" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate1" x="50" y="-20" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate2" x="60" y="-30" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate3" x="55" y="-40" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate4" x="45" y="-50" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		
+		<cb:Image id="plate5" x="160" y="-10" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate6" x="170" y="-20" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate7" x="180" y="-30" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate8" x="175" y="-40" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Image id="plate9" x="165" y="-50" width="96" height="27" opacity="0"><cb:Value><![CDATA[images/coins.png]]></cb:Value></cb:Image>
+		<cb:Text id="label" x="0" y="13" width="297" height="30" cssClass="pointsLabel">
+			<cb:Value><![CDATA[@=userPoints + " points"]]></cb:Value>
+		</cb:Text>
+	</cb:Div>
+		
+	<cb:Button id="submitBtn" x="795" y="415" width="80" height="40" cssClass="clickBtnDisabled" enabled="false" cursor="default">
+			<cb:Value><![CDATA[Submit]]></cb:Value>
+			<cb:Event name="onClick">
+				<cb:Script><![CDATA[
+					console.log("clicked submit");
+					judge();
+				]]></cb:Script>
+			</cb:Event>
+		</cb:Button>
+
+	<cb:Audio id="audio" autoPlay="true">
+		<cb:Value><![CDATA[audio/CB_Module 2_V1_S19.mp3]]></cb:Value>
+		<!-- add as many triggers as you need. Time is in seconds -->
+		<cb:Trigger time = "0">
+			<cb:Script><![CDATA[
+				var i;
+				for (i=0;i<dragCount;i++){
+					Animation.slideHorizontalAndFadeIn(dynPage.getObject("drag"+i),-30,400,i*400);
+				}
+				
+			]]></cb:Script>
+		</cb:Trigger>
+		
+	</cb:Audio>
+
+
+</cb:Page>

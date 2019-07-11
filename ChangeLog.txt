@@ -1,0 +1,63 @@
+/********************Change Log************************/
+Version 2.0.45 
+Release date 04/23/2105 
+Commited by Christopher Swenson
+
+Changes:
+
+Updated version numbering in index.html
+Updated Resonate.js to include the following:
+
+Course Class:
+	modified parsePageXML() to check for next and prev overrides on the page tag, allowing for overrides
+	modified getPageAvailable() to check for next and previous overrides set in the manifest.xml
+
+Page Class:
+	add property nextOverride - stores the the page that should be navigated to when the next button is hit, or null for default
+	add property prevOverride - stores the the page that should be navigated to when the next button is hit, or null for default
+
+
+Version 2.0.44 
+Release date 04/22/2105 
+Commited by Christopher Swenson
+
+Changes:
+
+Add the ability to use hidden pages (pages that do not effect the page numbering.)
+
+
+Updated version numbering in index.html
+Updated Resonate.js to include the following:
+
+	Course Class:
+	added private method _calcResolvedIndex(page); to calculate the true index of the page when using hidden pages
+	modified getPageCount(includeHidden = true) to include the includeHidden argument (defaults to true) to get the page count when using hidden pages
+	
+	Container Class:
+	added private method _calcResolvedIndex(page); to calculate the true index of the page when using hidden pages
+	modified getPageCount(includeHidden = true) to include the includeHidden argument (defaults to true) to get the page count when using hidden pages
+
+	Page Class:
+	added resolvedIndex property holds the true index of the page within a container when using hidden pages
+	added resolvedAbsoluteIndex property holds the true index of the page within the entire course when using hidden pages
+
+Example usage: 
+
+Adding a hidden attribute to a page within the manifest will hide the page from the page count
+
+		<page id="pres_010" hidden="true">
+			<data file="pages/absolutes.html">Absolutes</data>
+		</page>	
+
+Fixed issue with titleDepth="0" in the manifest where the 0 was seen as null and then the titleDepth would default to 2
+/*****************************************************/
+
+
+
+Instructions for updating
+
+Replace index.html
+
+Replace the entire skin folder
+
+Replace the ResonateCore.js and Resonate.js files in the js folder

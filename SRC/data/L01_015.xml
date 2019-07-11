@@ -1,0 +1,164 @@
+<cb:Page xmlns:cb="http://www.crackerbarrel.com/resonate">
+	<cb:CSS><![CDATA[
+		.block, .blockVisited{
+			box-shadow: 8px 8px 20px #000;
+			cursor: pointer;
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+			
+		}
+		.block{
+			box-shadow: 8px 8px 20px #000;
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+		}
+		
+		.blockVisited{
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+		    box-shadow: 8px 8px 20px #000;
+		}
+		
+		.block #label, .blockVisited #label{
+			
+			font-size:1.2rem; 
+			color:#fff; 
+			line-height:2;
+			text-align:center; 
+			box-shadow: 8px 8px 20px #000;
+		
+		}
+		.block #label{
+		background-color:#5E3809; 
+		border-radius: 8px;
+	    border-style: ridge;
+	    border-color: #492912;
+	    border-width: 2px;
+	    }
+		.blockVisited #label{
+		box-shadow: 8px 8px 20px #000;
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+			cursor: pointer;
+			background: rgb(68, 120, 13);
+			
+			}
+		
+		
+	]]></cb:CSS>
+	<cb:Script><![CDATA[
+	
+	
+		var jumpPages = ["L01_010a","L01_010b","L01_010c","L01_010d"];
+	
+	
+		function loadSubPage(sender)
+		{
+			var index = parseInt(sender.id.substr(3));
+			course.loadPageByID(jumpPages[index]);
+		
+		}// end function
+		
+		function setButtonStates()
+		{
+			var p;
+			var doneCount = 0;
+			for (i=0;i<jumpPages.length;i++)
+			{
+				// get the page and check it's status 0=not seen, 1= visited, 2 = completed
+				p = course.findPageByID(jumpPages[i]);
+				if (p.status == 2)
+				{
+					dynPage.getObject("btn" + i).setClass("blockVisited");
+					// this code add for stop audio which are play multiple times 
+					dynPage.getObject("audio").stop();
+					doneCount++
+				}
+			}// end for
+			if (doneCount == jumpPages.length)
+			{
+				
+				setPrompt(course.strings.prompt.clickNext[course.language]);
+	    		enableNextButton(true);
+	    	
+			}
+				
+		}// end function
+	
+	
+	]]></cb:Script>
+	<cb:Event name="onPageLoad">
+		<cb:Script><![CDATA[
+	    	setPrompt(course.strings.prompt.completeInteraction[course.language]);
+	    	enableNextButton(false);	
+		]]></cb:Script>
+	</cb:Event>	
+	<cb:Event name="onPageRender">
+		<cb:Script><![CDATA[
+			// wait just a tick before trying to set the states, let the page loading catch up
+			setTimeout(function(){setButtonStates();},100);	
+		]]></cb:Script>
+	</cb:Event>	
+
+	<cb:Div id="btn0" x="180" y="30" width="300" height="220" cssClass="block" >
+		<cb:Image id="image" x="-2" y="-2" width="300" height="179"  enabled="true" border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/M1S3_Image1_small.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="178" width="300" height="40" cssClass="blockLabel" border-radius= "8px" border-width= "2px" border-style=" ridge" border-color="#492912">
+			<cb:Value><![CDATA[Dish Process]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[loadSubPage(self);]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn1" x="505" y="30" width="300" height="220" cssClass="block" >
+		<cb:Image id="image" x="-2" y="-2" width="300" height="179" enabled="true" border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide2_small.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="178" width="300" height="40" cssClass="blockLabel" border-radius= "8px" border-width= "2px" border-style=" ridge" border-color="#492912">
+			<cb:Value><![CDATA[Dishes and Equipment]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[loadSubPage(self);]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn2" x="180" y="270" width="300" height="220" cssClass="block" >
+		<cb:Image id="image" x="-2" y="-2" width="300" height="179"  enabled="true" border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/M1S4_Image 1_small.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="178" width="300" height="40" cssClass="blockLabel" border-radius= "8px" border-width= "2px" border-style=" ridge" border-color="#492912" >
+			<cb:Value><![CDATA[Bussing Tables]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[loadSubPage(self);]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn3" x="505" y="270" width="300" height="220" cssClass="block" >
+		<cb:Image id="image" x="-2" y="-2" width="300" height="179"  enabled="true" border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/M1S5_Image1_small.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="178" width="300" height="40" cssClass="blockLabel" border-radius= "8px" border-width= "2px" border-style=" ridge" border-color="#492912">
+			<cb:Value><![CDATA[Other Duties]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[loadSubPage(self);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Audio id="audio" autoPlay="true">
+	<cb:Value><![CDATA[audio/slide-02.mp3]]></cb:Value>
+	<!-- add as many triggers as you need. Time is in seconds -->
+	<cb:Trigger time = "0">
+		<cb:Script><![CDATA[
+			// your code goes here
+		]]></cb:Script>
+	</cb:Trigger>
+	<cb:Event name="onComplete">
+		<cb:Script><![CDATA[
+			// your code goes here
+		]]></cb:Script>	
+	</cb:Event>
+</cb:Audio>
+</cb:Page>

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="xslt/class.xsl"?><class name="DragItem" namespace="com.crackerbarrel.interaction.dragDrop" extends="com.crackerbarrel.components.ShapeBase" author="Christopher Swenson" version="0.0.1">	<description><![CDATA[A draggable canvas drawn object.]]></description></class>

@@ -1,0 +1,133 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	ImageObj<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>Wrapper class around a div with an image</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>ImageObj</b>(id:String, left:Int, top:Int, width:Int, height:Int, uiStyle:uiStyle=null):ImageObj<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		id of the image
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the image
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the image
+	</td>
+</tr>
+<tr class="evenRow">
+<td>width</td><td>Int</td><td>
+		width of the image
+	</td>
+</tr>
+<tr class="oddRow">
+<td>height</td><td>Int</td><td>
+		height of the image
+	</td>
+</tr>
+<tr class="evenRow">
+<td>uiStyle</td><td>uiStyle=null</td><td>
+		style data to pass to the image
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>image</b> : String<br>
+		The loaded image file
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>swapImage</b>():String<br>imageFile The image file to load
+	<p></p>
+</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>onClick</b>:EventEx{}
+							<br>Fires when the image is clicked on</div>
+<div class="eventDiv">
+<b>onMouseOut</b>:EventEx{}
+							<br>Fires when the mouse leaves the image's bounding box</div>
+<div class="eventDiv">
+<b>onMouseOver</b>:EventEx{}
+							<br>Fires when the mouse enters the image's bounding box</div>
+</body>
+</html>

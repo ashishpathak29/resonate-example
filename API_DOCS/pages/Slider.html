@@ -1,0 +1,233 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	Slider<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>This class wraps the JQuery UI Slider Component</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>Slider</b>(id:String, left:Int, top:Int, uiStyle:ButtonStyle=null):Slider<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the slider
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the slider
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the slider
+	</td>
+</tr>
+<tr class="evenRow">
+<td>uiStyle</td><td>ButtonStyle=null</td><td>
+		style data to pass to the slider
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>max</b> : Int<br>
+		The maximum value of the slider
+	</div>
+<div class="propertyDiv">
+<b>min</b> : Int<br>
+		The minimum value of the slider
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>getIsRange</b>():Boolean<br>Is the slider a range slider?
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getMax</b>():Int<br>The maximum value the slider can be set to
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getMin</b>():Int<br>The minimum value the slider can be set to
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getOrientation</b>():String<br>The orientation of the slider; either horizontal or vertical
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getStep</b>():Int<br>The value of each interval or step that the slider takes between min and max
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getValue</b>():Int<br>The current value represented by the slider
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getValues</b>():Int<br>The current values represented by the range slider
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>setIsRange</b>():Void<br>
+	
+<p></p>
+</div>
+<div class="methodDiv">
+<b>setMax</b>():Void<br>
+	
+<p></p>
+</div>
+<div class="methodDiv">
+<b>setMin</b>():Void<br>
+	
+<p></p>
+</div>
+<div class="methodDiv">
+<b>setOrientation</b>():Void<br>
+	
+<p></p>
+</div>
+<div class="methodDiv">
+<b>setStep</b>(value:Int):Void<br>
+	
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>Int</td><td>
+		The value of each interval or step that the slider takes between min and max
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setValue</b>(value:Int):Void<br>
+	
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>Int</td><td>
+		The current value represented by the slider
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setValues</b>(lower:Int, upper:Int):Void<br>
+	
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>lower</td><td>Int</td><td>
+		The lower value of the range slider
+	</td>
+</tr>
+<tr class="evenRow">
+<td>upper</td><td>Int</td><td>
+		The upper value of the range slider
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>onChange</b>:EventEx{value:Int}
+							<br>Fires when the value of the slider changes</div>
+<div class="eventDiv">
+<b>onSlide</b>:EventEx{value:Int}
+							<br>Fires as the thumb of the slider is moved</div>
+</body>
+</html>

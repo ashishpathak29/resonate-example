@@ -1,0 +1,168 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.audio<br>
+    	Name:	SoundEx<br>
+    	Extends: <a href="EventDispatcher.html">com.crackerbarrel.events.EventDispatcher<br>
+</a>
+<p>Wrapper class around the Buzz js library for html5 audio</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>SoundEx</b>(audioFile:String):SoundEx<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>audioFile</td><td>String</td><td>
+		Path to audio file to load
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>sound</b> : buzz.sound<br>
+		Internal buzz sound object
+	</div>
+<div class="propertyDiv">
+<b>triggers</b> : Array&lt;com.crackerbarrel.audio.Trigger&gt;<br>
+		Array of trigger Objects
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>addTrigger</b>(time:int):void<br>
+	
+<p>Adds a trigger to the sound object.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>time</td><td>int</td><td>
+		in milliseconds to fire a trigger
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>destroy</b>():void<br>
+	
+<p>Destroys the object</p>
+</div>
+<div class="methodDiv">
+<b>getTriggers</b>(time:int):Array&lt;Trigger&gt;<br>An array of matching triggers
+	<p>Searches for all triggers matching the given time.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>time</td><td>int</td><td>
+		in milliseconds to search for matching triggers
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>play</b>():void<br>
+	
+<p>Plays the sound object</p>
+</div>
+<div class="methodDiv">
+<b>stop</b>():void<br>
+	
+<p>stops the sound object</p>
+</div>
+<div class="methodDiv">
+<b>togglePlay</b>():void<br>
+	
+<p>Toggles the play state of the sound object</p>
+</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>onComplete</b>:EventEx{}
+							<br>Fires when the Audio file has completed playing</div>
+<div class="eventDiv">
+<b>onTick</b>:EventEx{time:int}
+							<br>Fires on regular basis based on when the buzz audio object has a new time position</div>
+<div class="eventDiv">
+<b>onTrigger</b>:EventEx{trigger:com.crackerbarrel.audio.Trigger, index:int}
+							<br>
+</div>
+</body>
+</html>

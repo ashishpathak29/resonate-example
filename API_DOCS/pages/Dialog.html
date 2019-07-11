@@ -1,0 +1,123 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	Dialog<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>Wrapper class around the jQuery UI Dialog widget</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>Dialog</b>(id:String, left:Int, top:Int, divID:String, uiStyle:DialogStyle=null):Dialog<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		id of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>divID</td><td>String</td><td>
+		id of the div to use as the dialog
+	</td>
+</tr>
+<tr class="oddRow">
+<td>uiStyle</td><td>DialogStyle=null</td><td>
+		style data to pass to the object
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>divID</b> : String<br>
+		The id of the div holding the dialog
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>close</b>():Void<br>
+	
+<p>Closes the dialog</p>
+</div>
+<div class="methodDiv">
+<b>open</b>():Void<br>
+	
+<p>Opens the dialog</p>
+</div>
+</body>
+</html>

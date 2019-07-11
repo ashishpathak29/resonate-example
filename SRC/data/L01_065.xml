@@ -1,0 +1,237 @@
+<cb:Page xmlns:cb="http://www.crackerbarrel.com/resonate">
+	<cb:CSS><![CDATA[
+		.fbBox
+		  {
+		   z-index:100;
+		   border-radius: 20px;
+		   box-shadow: 8px 8px 20px #000;
+		   background:white;
+		   overflow:hidden;
+		  }
+		
+		
+		.menuBtn, .menuBtnVisited{
+			box-shadow: 8px 8px 20px #000;
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+			cursor: pointer;
+		}
+		
+		.menuBtn #label, .menuBtnVisited #label{
+			
+			font-size:1.2rem; 
+			color:#fff; 
+			line-height:2;
+			text-align:center; 
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+			background-color:#5E3809;
+		}
+		
+		.menuBtnVisited #label{background-color:rgb(68, 120, 13);}
+		
+		
+		.closeBtn
+		{
+			border-radius:8px;
+			color:#ffffff;
+			display: inline-block;
+			padding: 5px 10px 5px 10px;
+			background: #927c4f;
+			cursor:pointer;
+			z-index:10;
+		}
+		
+	]]></cb:CSS>
+	<cb:Script><![CDATA[
+		var btnCount = 6; // count of buttons / popups
+		
+		
+		// function called for each of the menu buttons
+		function handleMenuBtnClick(sender)
+		{
+			var i;
+			var index = sender.id.substr(3);
+			for (i=0;i<btnCount;i++)
+			{
+				dynPage.getObject("btn"+i).setCSS("display","none");
+				dynPage.getObject("feedback.img"+i).setCSS("display",i==index?"block":"none");
+			}// end for
+			dynPage.getObject("feedback").setCSS("display","block");
+			
+			// set the new button state and track it
+			setButtonStates(index);
+			
+			// update the prompt with the text of the menu button
+			setPrompt(dynPage.getObject("btn" + index + ".label").divObject.text());
+			
+			
+		}// end function
+	
+		// called when the popup close button is clicked
+		function closeFeedback()
+		{
+			var i;
+			var numberofvisted = 0;
+
+			for (i=0;i<btnCount;i++){
+				dynPage.getObject("btn"+i).setCSS("display","block");
+				
+				if (course.sessionData[course.page.id][i] == 1) {
+					numberofvisted++
+				}
+								
+				
+			}
+			
+			dynPage.getObject("feedback").setCSS("display","none");
+			
+			setPrompt(course.strings.prompt.clickEachItem[course.language]);
+			
+			if (btnCount == numberofvisted) {
+			
+				setPrompt(course.strings.prompt.clickNext[course.language]);
+	    		enableNextButton(true);
+			
+			}
+				
+				
+			
+		
+		}// end function
+		 
+		// updates and tracks button states
+		function setButtonStates(index)
+		{
+			var i;
+			// make sure we have a tracking array
+			if (course.sessionData[course.page.id] == undefined)
+			{
+				course.sessionData[course.page.id] = [];
+				// fill it with 0s
+				for (i=0;i<btnCount;i++){course.sessionData[course.page.id][i] = 0;}
+			}// end if
+			// if we passed a value then update the tracked data
+			if (index != undefined){
+				course.sessionData[course.page.id][index] = 1;
+			}// end if
+			for (i=0;i<btnCount;i++)
+			{
+				dynPage.getObject("btn"+i).setClass(course.sessionData[course.page.id][i] == 1?"menuBtnVisited":"menuBtn");
+			
+			}// end for
+		}// end function
+	
+	]]></cb:Script>
+	<cb:Event name="onPageLoad">
+		<cb:Script><![CDATA[
+		]]></cb:Script>
+	</cb:Event>	
+	<cb:Event name="onPageRender">
+		<cb:Script><![CDATA[
+			// wait just a tick before trying to set the states, let the page loading catch up
+			setTimeout(function(){setButtonStates();},100);	
+		]]></cb:Script>
+	</cb:Event>	
+
+	<cb:Div id="btn0" x="30" y="30" width="300" height="220" cssClass="menuBtn" >
+		<cb:Image id="image" x="0" y="0" width="300" height="180"  enabled="true"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_22/small/M2S22_DishMachine.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="177" width="300" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Dish Machine]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender);]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn1" x="350" y="30" width="300" height="220" cssClass="menuBtn " >
+		<cb:Image id="image" x="0" y="0" width="300" height="180"  enabled="true"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_22/small/M2S22_3-CompartmentSink.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="177" width="300" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[3-Compartment Sink]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender);]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn2" x="670" y="30" width="300" height="220" cssClass="menuBtn " >
+		<cb:Image id="image" x="0" y="0" width="300" height="180"  enabled="true"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_22/small/M2S22_Powersoak.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="177" width="300" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Powersoak]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender);]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn3" x="30" y="270" width="300" height="220" cssClass="menuBtn " >
+		<cb:Image id="image" x="0" y="0" width="300" height="180"  enabled="true"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_22/small/M2S22_LargeGrayTrashCan.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="177" width="300" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Trash Can]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender);]]></cb:Script></cb:Event>
+	</cb:Div> 
+	<cb:Div id="btn4" x="350" y="270" width="300" height="220" cssClass="menuBtn " >
+		<cb:Image id="image" x="0" y="0" width="300" height="180"  enabled="true"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_22/small/M2S22_HandWashSink.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="177" width="300" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Wash Sink]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="btn5" x="670" y="270" width="300" height="220" cssClass="menuBtn " >
+		<cb:Image id="image" x="0" y="0" width="300" height="180"  enabled="true"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_22/small/M2S22_Salvajore.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="177" width="300" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Salvajore]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender);]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="feedback" x="15" y="25" width="970" height="480" display="none" cssClass="fbBox">
+		<cb:Div id="closeBtn" x="935" y="9" width="7" height="18" cssClass="closeBtn">
+			<cb:Value><![CDATA[X]]></cb:Value>
+			<cb:Event name="onClick"><cb:Script><![CDATA[closeFeedback();]]></cb:Script></cb:Event>
+		</cb:Div>		
+		<cb:Image id="img0" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_22/big/M2S22_DishMachine.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img1" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_22/big/M2S22_3-CompartmentSink.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img2" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_22/big/M2S22_Powersoak.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img3" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_22/big/M2S22_LargeGrayTrashCan.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img4" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_22/big/M2S22_HandWashSink.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img5" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_22/big/M2S22_Salvajore.jpg]]></cb:Value>
+		</cb:Image>
+	</cb:Div>
+		<cb:Audio id="audio" autoPlay="true">
+	<cb:Value><![CDATA[audio/CB_Module 2_V1_S22.mp3]]></cb:Value>
+	<!-- add as many triggers as you need. Time is in seconds -->
+	<cb:Trigger time = "0">
+		<cb:Script><![CDATA[
+		setPrompt(course.strings.prompt.clickNext[course.language]);
+				enableNextButton(true);
+		]]></cb:Script>
+	</cb:Trigger>
+	<cb:Event name="onComplete">
+		<cb:Script><![CDATA[
+			// your code goes here
+		]]></cb:Script>	
+	</cb:Event>
+</cb:Audio>
+</cb:Page>

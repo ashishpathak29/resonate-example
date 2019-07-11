@@ -1,0 +1,62 @@
+{
+
+	"HTMLFileName":"clickExp.html",
+	"pref__general__AutoKeyframePropertiesArmed":"false",
+	"symbol_stage":{
+		"defaultStageParentWidth":"350px",
+		"dummyStageParentWidth":"350px",
+		"defaultStageParentHeight":"400px",
+		"dummyStageParentHeight":"400px"},
+	"TransitionIdCounter":"6",
+	"CompZoomFactor":"100",
+	"viewStartY":"0",
+	"pixelsPerMs":"0.2",
+	"ModelData":"{\
+\"stage\": {\
+   \"timelines\": {\
+      \"Default Timeline\": {\
+            \"ElementKeyframes\": {\
+                \"${_RoundRect}\": [], \
+                \"${_caption}\": [], \
+                \"body\": []\
+            }\
+      }\
+   }},\
+\"Preloader\": {\
+   \"timelines\": {\
+\
+   }},\
+\"rectButton\": {\
+   \"timelines\": {\
+      \"Default Timeline\": {\
+            \"ElementKeyframes\": {\
+                \"${_RoundRect}\": [], \
+                \"${_caption}\": []\
+            }\
+      }\
+   }},\
+\"Down-level\": {\
+   \"timelines\": {\
+\
+   }}\
+}",
+	"usedBOM":"false",
+	"nextElementColorIndex":"3",
+	"stage-Default Timeline_playhead_ms":"0",
+	"rectButton-Default Timeline_playhead_ms":"0",
+	"symbol_rectButton":{
+		"element_${_RoundRect}":{
+			"timelineColor2":"0x81aa62",
+			"animationEnabled":"true",
+			"timelineColor3":"0x5b6c4d",
+			"timelineColor":"0x91c767"},
+		"dummyStageParentWidth":"350px",
+		"dummyStageParentHeight":"400px",
+		"defaultStageParentWidth":"350px",
+		"element_${_caption}":{
+			"timelineColor2":"0xcbbd71",
+			"animationEnabled":"true",
+			"timelineColor3":"0x7b7652",
+			"timelineColor":"0xeedf79"},
+		"defaultStageParentHeight":"400px"},
+	"StageZoomFactor":"100"}

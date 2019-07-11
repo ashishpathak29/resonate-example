@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			var pageContent;
+			var img;
+			var audio;
+			preload = true; // global variable to determine if a page is waiting on files to preload. if true the loading animation will show
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.addPreloadFile(FileSystem.getURI("images/placeHolder.jpg"));// add the files
+				pageContent.addPreloadFile(FileSystem.getURI("audio/Overview_01.mp3"));
+				pageContent.preloadFiles();// load the files and wait for the event
+				
+			});
+			
+			// have the preloaded files down, show the page.
+			function handlePreloadComplete(e)
+			{
+				img = pageContent.addChild( new ImageObj("img",530,120,417,200,Styles.image,FileSystem.getURI("images/placeHolder.jpg")));
+					img.setClass("roundImage");
+				audio = pageContent.addAudio("audio",FileSystem.getURI("audio/Overview_01.mp3"));
+				pageContent.addAudioButton(audio,"audioBtn",null,{x:490, y:220});
+				
+				Animation.fadeIn($("#textBox"));
+				Animation.fadeIn(img);
+				setPrompt("Click Next to Continue.");
+				pageContent.refreshStage();
+				console.log("hide preloader");
+				showPreloader(false);
+				
+			}
+			
+			
+		</script>
+	</head>
+
+	<body>
+	<div id="textBox" class="textBoxLeft" style="opacity: 0; height:350px; z-index: 10">
+		<span class="titleText">Backup Cook PAR I — Preparation and Equipment</span>
+		<p>Welcome to Cracker Barrel Old Country Store. We are really glad you’re here. As a member of the Cracker Barrel team, you are responsible for ensuring Guest satisfaction.</p>
+		</div>	
+	</body>
+</html>

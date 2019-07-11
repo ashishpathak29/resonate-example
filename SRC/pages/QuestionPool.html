@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Question Pool</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		
+		<style media="screen" type="text/css">
+			#scoreImage{
+				-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+				-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+				box-shadow:inset 0px 1px 0px 0px #ffffff;
+				visibility:hidden;
+			}
+			
+			#resultText
+			{
+				font-size:1.5rem;
+				
+				
+			}
+		</style>
+		
+		
+		
+		<script>
+			var pageContent;
+			var continueBtn;
+			var qPool;
+			var layer;
+			var feedBackBox;
+		
+			var resultRect;
+			var resultText;
+			$(document).ready(function()
+			{
+				enableNextButton(false);
+				enablePrevButton(false);
+				pageContent = new PageContent();
+				
+				
+				layer = pageContent.canvas.addLayer();
+				
+		       
+						
+				resultRect = pageContent.canvas.addRect(layer,{
+			        x: 100,
+			        y: 60,
+			        width: 800,
+			        height: 400,
+			        fill: '#cccccc',
+			        stroke: 'black',
+			        strokeWidth: 4,
+			        cornerRadius:6,
+			        shadowColor: 'black',
+			        shadowBlur: 10,
+			        shadowOffset: 10,
+			        shadowOpacity: 0.5,
+			        visible:false		      
+			      });	
+				
+				
+				var scoreImage = pageContent.addChild( new ImageObj("scoreImage",265,90,463,390,Styles.image,FileSystem.getURI("skin/images/score.png")));
+				
+				
+				var retryBtn = pageContent.addChild(new StandardButton("retryBtn",610,410,new StandardButtonStyle(100,40)));
+       			var retryBtnText=retryBtn.addChild(new TextArea("caption",0,10,new TextAreaStyle(100,30)));
+				// retryBtnText.setText("Try Again");
+				 retryBtnText.setText(course.strings.tryAgain[course.language]);
+				 
+				 retryBtn.setVisible(false);
+				
+				retryBtn.addListener("onClick",function(e){course.reloadPage();});
+				
+				feedbackBox = pageContent.addChild(new FeedbackDisplay("feedbackBox"));
+				feedbackBox.addListener("onContinueClick",function(e){
+					
+					
+					var results = qPool.getResults();
+					var resultsValue;
+					feedbackBox.setVisible(false);
+					pageContent.stopAllAudio();
+					//continueBtn.setVisible(false);
+					//feedbackText.setVisible(false);
+					if (qPool.getQuestionCount(true)>0){
+						qPool.loadQuestion(pageContent);
+					}else{
+						//qPool.questionDisplay.divObject.remove();
+						qPool.questionDisplay.destroy();
+						//resultRect.setVisible(true);
+						scoreImage.setVisible(true);
+						scoreImage.setCSS("visibility","visible");
+						scoreImage.setCSS("opacity","1");
+						//setPrompt("Your results");
+						setPrompt(course.strings.prompt.yourResults[course.language]);
+						resultsValue =  Math.ceil(results.score * 100) >=80?"<font font-size='1.8rem' color='#22cc33'>"+course.strings.congratulations[course.language] +"</font>":"<font font-size='1.8rem' color='#FF0000'>"+course.strings.tryAgain[course.language] +"</font>";
+						resultsValue += "</br></br>"+ course.strings.hits[course.language] +" <span style='padding-left:15em'>" + results.questionCount + "</span></br></br>";
+						resultsValue += course.strings.misses[course.language] + " <span style='margin-left:324px'>" + results.misses+ "</span></br></br>";;
+						resultsValue += course.strings.score[course.language] + " <span style='padding-left:13em'>" + Math.ceil(results.score * 100) + "%</span></br></br>";;
+						
+						resultText = pageContent.addChild(new TextArea("resultText",275,147,new TextAreaStyle(700,30))).setText(resultsValue);
+						
+						if (course.pageAvailable() && (Math.ceil(results.score * 100) >=80)){
+							enableNextButton(true);
+						}else if (Math.ceil(results.score * 100) <80)
+						{
+							retryBtn.setVisible(true);
+							retryBtn.setCSS("opacity","1");
+						}// end if
+						
+						if (qPool.track && (Math.ceil(results.score * 100) >=80)){
+							TrackingManager.setScore(Math.ceil(results.score * 100));
+							TrackingManager.setStatus("completed");
+						}// end if
+						
+					}// end if
+					pageContent.canvas.repaint();
+				});
+			
+
+				
+				qPool = new QuestionPool(course.page.getParam("poolFile",course.language),pageContent);
+				qPool.addListener("onLoaded",function(e){
+					e.sender.loadQuestion(pageContent);
+					pageContent.refreshStage();
+				});
+				qPool.addListener("onJudge",function(e){
+					
+					
+      				feedbackBox.setText(e.feedback.text);
+      				feedbackBox.addAudioButton(e.feedback.audioData);
+      				feedbackBox.setVisible(true);
+      				pageContent.refreshStage();
+      			
+				});
+				qPool.addListener("onQuestionLoaded",function(e)
+				{
+					pageContent.refreshStage();
+					
+					setPrompt(course.strings.prompt.questionsRemaining[course.language].replace("{0}",e.remaining).replace("{1}",(e.remaining>1?"s":"")));
+					//setPrompt(e.remaining + " Question" +(e.remaining>1?"s":"")+" Remaining");
+					
+				});
+				
+			});
+			
+			var loadCount;
+			var interval;
+			var stopCount;
+			function kickTheTires(count){
+				stopCount = count || 1000;
+				loadCount = 0;
+			interval = setInterval(function(){
+				console.log("load count " + loadCount++ + " / " + stopCount);
+				if (loadCount >= stopCount){clearInterval(interval);}else{
+				qPool.loadQuestion(pageContent);
+				}
+				},40);
+			}
+			
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>

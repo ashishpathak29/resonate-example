@@ -1,0 +1,188 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	SVG<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>Wrapper class around the SNAP SVG library</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>SVG</b>(id:String, left:Int, top:Int, uiStyle:SVGStyle=null, loadHandler:Function=null):SVG<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the SVG
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the SVG
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the SVG
+	</td>
+</tr>
+<tr class="evenRow">
+<td>uiStyle</td><td>SVGStyle=null</td><td>
+		style data to pass to the SVG
+	</td>
+</tr>
+<tr class="oddRow">
+<td>loadHandler</td><td>Function=null</td><td>
+		Function to call when the SVG file has loaded
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>file</b> : String<br>
+		The file path of the loaded SVG drawing
+	</div>
+<div class="propertyDiv">
+<b>svg</b> : SVGTag<br>
+		The internal SVG tag holding the drawing
+	</div>
+<div class="propertyDiv">
+<b>svgDom</b> : svgDom<br>
+		A reference to the internal SVG DOM
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>getAttribute</b>(elementID:String, attribute:String):Object<br>The value of the given element attribute
+	<p>Returns the value of the given element attribute</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>elementID</td><td>String</td><td>
+		The id of the element to find
+	</td>
+</tr>
+<tr class="evenRow">
+<td>attribute</td><td>String</td><td>
+		The attribute of the element to return.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getElement</b>(elementID:String):SVGElement<br>The element for the given elementID
+	<p>Returns a pointer to the given element within the SVG drawing</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>elementID</td><td>String</td><td>
+		The id of the element to return
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setAttribute</b>(elementID:String, attribute:String):Object<br>The value of the given element attribute
+	<p>Sets the value of the given element attribute and returns its value</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>elementID</td><td>String</td><td>
+		The id of the element to find
+	</td>
+</tr>
+<tr class="evenRow">
+<td>attribute</td><td>String</td><td>
+		The attribute of the element to set.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+</body>
+</html>

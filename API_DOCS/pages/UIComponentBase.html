@@ -1,0 +1,466 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	UIComponentBase<br>
+    	Extends: <a href="EventDispatcher.html">com.crackerbarrel.events.EventDispatcher<br>
+</a>
+<p>Base class for all Resonate graphical components, this class should not be instanced directly</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>UIComponentBase</b>(id:String, left:Int, top:Int, uiStyle:UIStyle=null):UIComponentBase<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		id of the component
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the component
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the component
+	</td>
+</tr>
+<tr class="evenRow">
+<td>uiStyle</td><td>UIStyle=null</td><td>
+		style data to pass to the component
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>canDrag</b> : Boolean=false<br>
+		Is the component draggable?
+	</div>
+<div class="propertyDiv">
+<b>children</b> : KeyCollection<br>
+		KeyCollection of visible Children
+	</div>
+<div class="propertyDiv">
+<b>divObject</b> : Object<br>
+		Reference to the internal Div used to hold the component
+	</div>
+<div class="propertyDiv">
+<b>enabled</b> : Boolean=true<br>
+		Is the component enabled?
+	</div>
+<div class="propertyDiv">
+<b>height</b> : Int<br>
+		The height of the component
+	</div>
+<div class="propertyDiv">
+<b>id</b> : String<br>
+		The id of the component
+	</div>
+<div class="propertyDiv">
+<b>left</b> : Int<br>
+		The left position of the component
+	</div>
+<div class="propertyDiv">
+<b>logic</b> : Logic=null<br>
+		the logic object linked to the component
+	</div>
+<div class="propertyDiv">
+<b>nonVisibleChildren</b> : KeyCollection<br>
+		KeyCollection of nonvisible children
+	</div>
+<div class="propertyDiv">
+<b>parentObject</b> : Object<br>
+		The object that holds the component
+	</div>
+<div class="propertyDiv">
+<b>top</b> : Int<br>
+		The top position of the component
+	</div>
+<div class="propertyDiv">
+<b>uiStyle</b> : UIStyle<br>
+		The uiStyle linked to the component
+	</div>
+<div class="propertyDiv">
+<b>width</b> : Int<br>
+		The width of the component
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>addChild</b>(component:UIComponentBase):UIComponentBase<br>The added component
+	<p>Attaches a component to this component.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>component</td><td>UIComponentBase</td><td>
+		The component to make a child of this component
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addNonVisibleChild</b>(name:String, object:Object):DIV<br>The child object
+	<p>Adds a nonvisible child to the component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>name</td><td>String</td><td>
+		The name of the child you wish to add
+	</td>
+</tr>
+<tr class="evenRow">
+<td>object</td><td>Object</td><td>
+		The child object you wish to add
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>alpha</b>(value:Float):Float<br>The current opacity of the component
+	<p>Sets the opacity (alpha) of the component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>Float</td><td>
+		The value to set the alpha to 0 - 1
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>attachDiv</b>(div:DIV):DIV<br>The attached div
+	<p>Attaches a standard div as a child of this component.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>div</td><td>DIV</td><td>
+		The div to attach as a child of this component
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>destroy</b>():Void<br>
+	
+<p>Cleanly destroys the component</p>
+</div>
+<div class="methodDiv">
+<b>getChild</b>(name:String):DIV<br>The child
+	<p>Returns a reference to a child of this component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>name</td><td>String</td><td>
+		The name of the child you wish to get
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getCSS</b>(cssAttribute:String):Object<br>
+	
+<p>Returns the current value of a css attribute</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>cssAttribute</td><td>String</td><td>
+		The css attribute you wish to return
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getNonVisibleChild</b>(name:String):DIV<br>The child
+	<p>Returns a reference to a child of this component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>name</td><td>String</td><td>
+		The name of the child you wish to get
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>position</b>():Void<br>
+	
+<p>Returns an object with position information includes: x,y</p>
+</div>
+<div class="methodDiv">
+<b>removeChild</b>(component:UIComponentBase):Void<br>
+	
+<p>removes a component to this component.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>component</td><td>UIComponentBase</td><td>
+		The component to remove as a child of this component
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>removeClass</b>(className:String):Void<br>
+	
+<p>Removes the given css class from a component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>className</td><td>String</td><td>
+		The css class you wish to remove
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>removeNonVisibleChild</b>(name:String):Void<br>
+	
+<p>Removes a nonvisible child of this component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>name</td><td>String</td><td>
+		The name of the child you wish to remove
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setClass</b>(className:String, overwrite:Boolean=true):Void<br>
+	
+<p>Sets the current css class of a component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>className</td><td>String</td><td>
+		The css class you wish to set
+	</td>
+</tr>
+<tr class="evenRow">
+<td>overwrite</td><td>Boolean=true</td><td>
+		Overwrite the class list or append
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setCSS</b>(cssAttribute:String, value:Object):Void<br>
+	
+<p>Sets the current value of a css attribute</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>cssAttribute</td><td>String</td><td>
+		The css attribute you wish to set
+	</td>
+</tr>
+<tr class="evenRow">
+<td>value</td><td>Object</td><td>
+		The value you want the css attribute set to
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setEnabled</b>(value:Boolean):Void<br>
+	
+<p>Sets the enabled property of a component</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>Boolean</td><td>
+		True/false should the component be enabled?
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setVisible</b>(value:Boolean):Void<br>
+	
+<p>Changes the visibility of a component.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>Boolean</td><td>
+		True/false is the component visible?
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>onDrop</b>:EventEx{}
+							<br>Fires when the component is dropped after dragging</div>
+<div class="eventDiv">
+<b>onStartDrag</b>:EventEx{}
+							<br>Fires when the component begins dragging</div>
+<div class="eventDiv">
+<b>onStopDrag</b>:EventEx{}
+							<br>Fires when the component stops dragging</div>
+</body>
+</html>

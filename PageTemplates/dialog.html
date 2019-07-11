@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Dialog</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+	
+		<script>
+			var pageContent;
+			var button;
+			var dialog;
+			
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				enableNextButton(false);
+				//dialog = pageContent.addDialog("#dialog",440,140);
+				dialog = pageContent.addChild(new Dialog("dialog",0,0,"#dialog",new DialogStyle({position:['center','center']})));
+				pageContent.attachDiv("#textBlock");
+				button = pageContent.addButton("clickMe",80,200,"Click Me!");
+			
+				button.addListener("onClick",function(e){
+					showPopUp();
+				});
+				
+				//pageContent.refreshStage();
+				setPrompt("Click the button");
+			});
+			
+			function showPopUp()
+			{
+				
+				dialog.open();
+					enableNextButton(true);
+					setPrompt("Click next to continue");
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="dialog" title="sample dialog">	
+				
+				<h2>HTML popup</h2>
+				<p>Example of an HTML popup.</p>
+				<p>Lorem ipsum dolor sit amet, nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam.</p>
+		</div>
+		<div id="textBlock" class="textBoxLeft">
+			<p>Click the button below to see a sample. or click <a href="javascript:showPopUp();">here</a></p>
+				
+			
+			
+		</div>
+			
+	</body>
+</html>		

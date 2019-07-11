@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			var pageContent;
+			var audio;
+			preload = true;
+			
+			
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.addPreloadFile(FileSystem.getURI("audio/responsibilities_09.mp3"));
+				pageContent.preloadFiles();// load the files and wait for the event
+				
+			});
+			
+			
+			
+			function handlePreloadComplete(e)
+			{   
+				
+				
+				Animation.fadeIn($("#textBox"));
+				Animation.fadeIn($("#principles"));
+				Animation.fadeIn($("#absolutes"));
+			
+				setPrompt("Click Next to Continue.");
+				audio = pageContent.addAudio("audio",FileSystem.getURI("audio/responsibilities_09.mp3"));
+				pageContent.addAudioButton(audio,"audioBtn",null,{x:450, y:430});
+				pageContent.refreshStage();
+				showPreloader(false);
+			}
+		</script>
+	</head>
+
+	<body>
+		
+		
+
+
+		
+	<div id="textBox" class="textBoxLeft" style="opacity: 0">
+	<p><span class="titleText">Giving our Guests our best</span></strong></p>
+	<p><ul>
+		<li>Serve your Guests and co-workers with a positive attitude and friendly smile.</li>
+		<li>Our mission of <b>pleasing people</b>&#174; can only be accomplished through teamwork. Be a team player.</li>
+		<li>Assist in steamline setup between 10:30 a.m. and 10:45 a.m. when appropriate.</li>
+		<li>All cooking errors (including sausage patties, hamburgers, and steaks) must be corrected with freshly cooked product and a proper ticket.</li>
+		<li>Keep ticket times to 10 minutes or less.</li>
+		<li>When you get tickets that consist of Dip Items Only, prepare them immediately.</li>
+	</ul></p>
+	</div>	
+	
+	<div id="principles" class="principles" style="opacity: 0; top:165px;height:80px">
+			Guiding principle - Hospitality First:
+			<ul>
+				<li>Friendly with a smile</li>
+				<li>Positive and <b>pleasing people</b>&#174; attitude</li>
+				
+			</ul>
+		</div>
+	<div id="absolutes" class="absolutes" style="opacity: 0; top:295px; height:80px">
+			<strong>Absolutes - Grill Cook:</strong>
+			<ul>
+			<li>10 Minute or Less Ticket Times</li>
+			<li>Dip Tickets Prepared Immediately</li>
+			</ul>
+			
+		</div>
+	</body>
+</html>

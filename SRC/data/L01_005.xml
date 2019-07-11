@@ -1,0 +1,58 @@
+<cb:Page xmlns:cb="http://www.crackerbarrel.com/resonate">
+	<cb:CSS><![CDATA[
+	.polyBox
+		{
+
+			border-top: 55px solid #5E3809;
+			border-right: 22px solid transparent;
+			overflow:hidden;
+		}
+	]]></cb:CSS>
+	<cb:Script><![CDATA[]]></cb:Script>
+	<cb:Event name="onPageLoad">
+		<cb:Script><![CDATA[
+		pageContent.setCSS("overflow","hidden");
+    	setPrompt(course.strings.prompt.watchPresentation[course.language]);
+
+		]]></cb:Script>
+	</cb:Event>	
+	
+	<cb:Div id="div1" x="15" y="10" width="974px" height="500px" style="overflow:hidden;">
+	<cb:Value><![CDATA[]]></cb:Value>
+	<cb:Event name="onRender">
+		<cb:Script><![CDATA[
+		
+				 	
+		]]></cb:Script>
+	</cb:Event>
+
+		<cb:Image id="img1" x="0" y="0" width="974" height="500" opacity="0"  cssClass="mySlides" background-position="0px 0px">
+			<cb:Value><![CDATA[images/slide_1/slide12.jpg]]></cb:Value>
+		</cb:Image>
+		</cb:Div>
+	<cb:Div id="banner0" x="-320" y="10" width="320" height="52" overflow="hidden" opacity="0" z-index="2">
+		<cb:Div id="polygon" x="0" y="0" width="300" height="22" cssClass="polyBox"/>
+		<cb:Text id="caption" x="18" y="13" width="280" height="52" cssClass="textBoxLeft" color="#FFFFFF" overflow="hidden">
+			<cb:Value><![CDATA[Dishes and Equipment]]></cb:Value>
+		</cb:Text>
+	</cb:Div>
+		<cb:Audio id="audio" autoPlay="true">
+			<cb:Value><![CDATA[ audio/CB_Module 2_V1_S01.mp3  ]]></cb:Value>
+			<cb:Trigger time="0">
+			<cb:Script><![CDATA[
+				Animation.doKen(dynPage.getObject("div1.img1"),"",{timing:"3s,3s", scale:1.5,});
+				Animation.moveTo(dynPage.getObject("banner0"),0,10,700,0);
+				Animation.fadeIn(dynPage.getObject("banner0"),700);
+				]]>
+				</cb:Script>
+			</cb:Trigger>
+				
+		<cb:Event name="onComplete">
+			<cb:Script><![CDATA[
+				setPrompt(course.strings.prompt.clickNext[course.language]);
+				enableNextButton(true);
+				
+			]]></cb:Script>	
+		</cb:Event>
+</cb:Audio>
+</cb:Page>

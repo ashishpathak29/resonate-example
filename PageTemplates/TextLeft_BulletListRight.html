@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			var pageContent;
+			var img;
+			var audio;
+			preload = true; // global variable to determine if a page is waiting on files to preload. if true the loading animation will show
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.addPreloadFile(FileSystem.getURI("audio/Shift_Setup_04.mp3"));
+				pageContent.preloadFiles();// load the files and wait for the event
+				
+			});
+			
+			// have the preloaded files down, show the page.
+			function handlePreloadComplete(e)
+			{
+				audio = pageContent.addAudio("audio",FileSystem.getURI("audio/Shift_Setup_04.mp3"));
+				pageContent.addAudioButton(audio,"audioBtn",null,{x:450, y:340});
+				
+				Animation.fadeIn($("#textBox"));
+				Animation.fadeIn($("#bulletList"));
+				setPrompt("Click Next to Continue.");
+				pageContent.refreshStage();
+				console.log("hide preloader");
+				showPreloader(false);
+				
+			}
+			
+			
+		</script>
+	</head>
+
+	<body>
+	<div id="textBox" class="textBoxLeft" style="opacity: 0; height:220px; z-index: 10">
+		<span class="titleText">Preparing for a peak period</span>
+		<p>Peak period setup is simply preparing for the busiest time of the day. Although you should be prepared to serve our Guests at any time, peak period setup allows you an extra opportunity to check the setup before the busiest times of day. If your station is set up properly with all the supplies you need, our Guests will get good service and everyone on your team will have fun.</p>
+	</div>
+	<div id="bulletList" class="textBoxLeft" style="opacity: 0; height:520px; left:500px; top:60px; z-index: 10">
+		<ul>
+		<li>Complete all HACCP temperature checks and log them.</li>
+		<li>Organize and clean the grill line.</li>
+		<li>Stock all supplies, including dishes and proper utensils.</li>
+		<li>Stock the reach-in freezers and coolers, the steamline, and the sandwich station.</li>
+		<li>Stock the sandwich bread and buns on the shelf above the grill line.</li>
+		<li>Stock biscuits and cornbread in the bread pass-thru</li>
+		<li>Empty all bus tubs and trash cans.</li>
+		<li>Change the sanitation water in the red bucket.</li>
+		<li>Communicate with the backup cooks about items taken from the hot box.</li>
+		<li>The opening grill can prepare sandwich sets (lettuce and tomatoes). In an amber 1/2 pan, stack one lettuce leaf and two tomato slices on a piece of wax paper, alternate until the pan is full.</li>
+		<li>When preparing for peak period, remove bread ties from bread packaging, and fold the packaging under the bread when it is not in use.</li>
+		</ul>
+	</div>
+		
+	</body>
+</html>

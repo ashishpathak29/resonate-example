@@ -1,0 +1,194 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.structure<br>
+    	Name:	Page<br>
+    	Extends: <a href="EventDispatcher.html">com.crackerbarrel.events.EventDispatcher<br>
+</a>
+<p>An object to represent a single page</p>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>absoluteIndex</b> : Int<br>
+		The index of this page in the masterPageList of the course
+	</div>
+<div class="propertyDiv">
+<b>data</b> : Array<br>
+		The data passed to this page from the manifest
+	</div>
+<div class="propertyDiv">
+<b>id</b> : String<br>
+		The id of the page
+	</div>
+<div class="propertyDiv">
+<b>index</b> : Int<br>
+		The index of this page within it's parent container
+	</div>
+<div class="propertyDiv">
+<b>languages</b> : KeyCollection<br>
+		A collection of language objects available to this page
+	</div>
+<div class="propertyDiv">
+<b>status</b> : Int<br>
+		The viewed staus of the page as an integer: 0 not viewed, 1, started, 2 viewed
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>addParam</b>(name:String, data:String, language:String=defaultLanguage):Void<br>
+	
+<p>Parameter as added by the manifest. This method should not be called directly.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>name</td><td>String</td><td>
+		The name of the parameter to add
+	</td>
+</tr>
+<tr class="evenRow">
+<td>data</td><td>String</td><td>
+		The data to be held in the parameter. Most often this is a path to an XML or JSON file
+	</td>
+</tr>
+<tr class="oddRow">
+<td>language</td><td>String=defaultLanguage</td><td>
+		The short name of the language this parameter is associated with.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getFile</b>(language:String):String<br>The file as added by the manifest is returned
+	<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>language</td><td>String</td><td>
+		language short name to get get the file for.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getPageNumber</b>():Integer<br>Page number (index + 1) of this page
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getParam</b>(name:String, language:String=defaultLanguage):Void<br>
+	
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>name</td><td>String</td><td>
+		The name of the parameter to return
+	</td>
+</tr>
+<tr class="evenRow">
+<td>language</td><td>String=defaultLanguage</td><td>
+		The short name of the language to return the parameter for
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getTitle</b>(language:String):String<br>The title as added by the manifest is returned
+	<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>language</td><td>String</td><td>
+		language short name to get get the title for.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>toSimpleObject</b>():Object<br>
+	
+<p>Returns the page as a serialized POJO without methods only properties.</p>
+</div>
+</body>
+</html>

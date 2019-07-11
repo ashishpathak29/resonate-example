@@ -1,0 +1,255 @@
+<cb:Page xmlns:cb="http://www.crackerbarrel.com/resonate">
+	<cb:CSS><![CDATA[
+		
+		.fbBox
+		  {
+		   z-index:100;
+		   border-radius: 20px;
+		   box-shadow: 8px 8px 20px #000;
+		   background:white;
+		   overflow:hidden;
+		  }
+		
+		
+		.menuBtn, .menuBtnVisited{
+			box-shadow: 8px 8px 20px #000;
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+			cursor: pointer;
+		}
+		
+		.menuBtn #label, .menuBtnVisited #label{
+			
+			font-size:1.2rem; 
+			color:#fff; 
+			line-height:2;
+			text-align:center; 
+			border-radius: 8px;
+		    border-style: ridge;
+		    border-color: #492912;
+		    border-width: 2px;
+			background-color:#5E3809;
+		}
+		
+		.menuBtnVisited #label{background-color:rgb(68, 120, 13);}
+		
+		
+		.closeBtn
+		{
+			border-radius:8px;
+			color:#ffffff;
+			display: inline-block;
+			padding: 5px 10px 5px 10px;
+			background: #927c4f;
+			cursor:pointer;
+			z-index:10;
+		}
+		
+	]]></cb:CSS>
+	<cb:Script><![CDATA[
+	
+		var btnCount = 9; // count of buttons / popups
+		
+		
+		// function called for each of the menu buttons
+		function handleMenuBtnClick(sender)
+		{
+			var i;
+			var index = sender.id.substr(3);
+			for (i=0;i<btnCount;i++)
+			{
+				dynPage.getObject("btn"+i).setCSS("display","none");
+				dynPage.getObject("feedback.img"+i).setCSS("display",i==index?"block":"none");
+			}// end for
+			dynPage.getObject("feedback").setCSS("display","block");
+			
+			// set the new button state and track it
+			setButtonStates(index);
+			
+			// update the prompt with the text of the menu button
+			setPrompt(dynPage.getObject("btn" + index + ".label").divObject.text());
+			
+			
+		}// end function
+	
+		// called when the popup close button is clicked
+		function closeFeedback()
+		{
+			var i;
+
+			for (i=0;i<btnCount;i++){
+				dynPage.getObject("btn"+i).setCSS("display","block");		
+				
+			}
+			
+			dynPage.getObject("feedback").setCSS("display","none");
+		}// end function
+		 
+		// updates and tracks button states
+		function setButtonStates(index)
+		{
+			var i;
+			// make sure we have a tracking array
+			if (course.sessionData[course.page.id] == undefined)
+			{
+				course.sessionData[course.page.id] = [];
+				// fill it with 0s
+				for (i=0;i<btnCount;i++){course.sessionData[course.page.id][i] = 0;}
+			}// end if
+			// if we passed a value then update the tracked data
+			if (index != undefined){
+				course.sessionData[course.page.id][index] = 1;
+			}// end if
+			for (i=0;i<btnCount;i++)
+			{
+				dynPage.getObject("btn"+i).setClass(course.sessionData[course.page.id][i] == 1?"menuBtnVisited":"menuBtn");
+			
+			}// end for
+		}// end function
+	
+	
+	]]></cb:Script>
+	<cb:Event name="onPageLoad">
+		<cb:Script><![CDATA[
+		setPrompt(course.strings.prompt.clickEachItem[course.language]);
+	    enableNextButton(false);
+		]]></cb:Script>
+	</cb:Event>	
+	<cb:Event name="onPageRender">
+		<cb:Script><![CDATA[
+			// wait just a tick before trying to set the states, let the page loading catch up
+			setTimeout(function(){setButtonStates();},100);	
+		]]></cb:Script>
+	</cb:Event>	
+
+	<cb:Div id="btn0" x="20" y="30" width="180" height="220" cssClass="menuBtn" cursor="pointer" >
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_MeatloafSpatula.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Meatloaf Spatula]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn1" x="215" y="30" width="180" height="220" cssClass="menuBtn" cursor="pointer" >
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_PouchMate.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Pouch Mate]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn2" x="410" y="30" width="181" height="220" cssClass="menuBtn" cursor="pointer" >
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_LongGrillSpatula.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Long Grill Spatula]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="btn3" x="605" y="30" width="181" height="220" cssClass="menuBtn" cursor="pointer">
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_plasticTongs.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Plastic Tongs]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div> 
+	<cb:Div id="btn4" x="801" y="30" width="181" height="220" cssClass="menuBtn" cursor="pointer">
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_EggSpatula.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Egg Spatula]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="btn5" x="91" y="270" width="181" height="220" cssClass="menuBtn" cursor="pointer">
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_MetalTongs.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Metal Tongs]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="btn6" x="289" y="270" width="181" height="220" cssClass="menuBtn" cursor="pointer">
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_LargeKitchenSpoon.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Large Kitchen Spoon]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div>
+		<cb:Div id="btn7" x="487" y="270" width="181" height="220" cssClass="menuBtn" cursor="pointer">
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_Spoodles.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Spoodles]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender)]]></cb:Script></cb:Event>
+	</cb:Div>
+	<cb:Div id="btn8" x="685" y="270" width="181" height="220" cssClass="menuBtn" cursor="pointer">
+		<cb:Image id="image" x="-2" y="-2" width="181" height="176"  enabled="true"  border-radius="8px" border-style=" ridge" border-color="#492912"  alt="placeholder" >
+				<cb:Value><![CDATA[images/slide_9/small/M2S9_Ladles.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Text id="label" x="-2" y="176" width="182" height="40" cssClass="menuBtnLabel" >
+			<cb:Value><![CDATA[Ladles]]></cb:Value>
+		</cb:Text>
+		<cb:Event name="onClick"><cb:Script><![CDATA[handleMenuBtnClick(sender); 	]]></cb:Script></cb:Event>
+	</cb:Div>
+	
+	<cb:Div id="feedback" x="15" y="25" width="970" height="480" display="none" cssClass="fbBox">
+		<cb:Div id="closeBtn" x="935" y="9" width="7" height="18" cssClass="closeBtn">
+			<cb:Value><![CDATA[X]]></cb:Value>
+			<cb:Event name="onClick"><cb:Script><![CDATA[closeFeedback();]]></cb:Script></cb:Event>
+		</cb:Div>		
+		<cb:Image id="img0" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_MeatloafSpatula.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img1" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_PouchMate.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img2" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_LongGrillSpatula.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img3" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_PlasticTongs.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img4" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_EggSpatula.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img5" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_MetalTongs.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img6" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_LargeKitchenSpoon.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img7" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_Spoodles.jpg]]></cb:Value>
+		</cb:Image>
+		<cb:Image id="img8" x="0" y="0" width="974" height="480">
+				<cb:Value><![CDATA[images/slide_9/big/M2S9_Ladles.jpg]]></cb:Value>
+		</cb:Image>
+	</cb:Div>
+
+	<cb:Audio id="audio" autoPlay="true">
+			<cb:Value><![CDATA[audio/CB_Module 2_V1_S09.mp3]]></cb:Value>
+			<cb:Trigger time = "0">
+				<cb:Script><![CDATA[
+						setPrompt(course.strings.prompt.clickEachItem[course.language]);
+						 enableNextButton(true);	
+				]]></cb:Script>
+			</cb:Trigger>
+	</cb:Audio>
+</cb:Page>

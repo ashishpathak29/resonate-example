@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			var pageContent;
+			var img;
+			var audio;
+			preload = true; // global variable to determine if a page is waiting on files to preload. if true the loading animation will show
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.addPreloadFile(FileSystem.getURI("images/Finished.jpg"));// add the files
+			
+				pageContent.preloadFiles();// load the files and wait for the event
+				
+			});
+			
+			// have the preloaded files down, show the page.
+			function handlePreloadComplete(e)
+			{
+				course.page.status = 2;
+				img = pageContent.addChild( new ImageObj("img",530,120,400,267,Styles.image,FileSystem.getURI("images/Finished.jpg")));
+				img.setClass("roundImage");
+				Animation.fadeIn($("#textBox"));
+				Animation.fadeIn(img);
+				setPrompt("Please exit the course.");
+				pageContent.refreshStage();
+				console.log("hide preloader");
+				showPreloader(false);
+				
+				if (TrackingManager.score != undefined && TrackingManager.score >= 80){
+					TrackingManager.setScore(TrackingManager.score);
+				}else{
+					// don't have a score, something has gone wrong, give them 100%
+					TrackingManager.setScore(100);
+				}// end if
+				TrackingManager.setStatus("completed");
+				
+				
+			}
+			
+			
+		</script>
+	</head>
+
+	<body>
+	<div id="textBox" class="textBoxLeft" style="opacity: 0; height:350px; z-index: 10">
+		<span class="titleText">Congratulations you have completed this course!</span>
+		<p>You may now exit the course by clicking the exit button at the bottom left of the screen.</p>
+		<p>If the course does not exit, please close the window by clicking the X button at the top of the screen.</p>
+		</div>	
+	</body>
+</html>

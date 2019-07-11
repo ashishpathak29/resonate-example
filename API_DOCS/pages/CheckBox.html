@@ -1,0 +1,162 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	CheckBox<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>Simple div based toggle button / checkBox button</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>CheckBox</b>(id:String, left:Int, top:Int, uiStyle:CheckBoxStyle=null):CheckBox<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		id of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the object
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>uiStyle</td><td>CheckBoxStyle=null</td><td>
+		style data to pass to the object
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>checked</b> : Boolean<br>
+		Is the check box checked or not.
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>setChecked</b>(value:Boolean):Void<br>
+	
+<p>Checks or unchecks the CheckBox button</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>Boolean</td><td>
+		True/False is the button checked?
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>setEnabled</b>(value:Boolean):Void<br>
+	
+<p>Enables or disables the CheckBox button</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>value</td><td>Boolean</td><td>
+		True/False is the button enabled?
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>onChange</b>:EventEx{checked:Boolean}
+							<br>Fires when the checked state of the button changes</div>
+<div class="eventDiv">
+<b>onClick</b>:EventEx{}
+							<br>Fires when the button is clicked</div>
+<div class="eventDiv">
+<b>onMouseOut</b>:EventEx{}
+							<br>fires when the mouse leaves the button</div>
+<div class="eventDiv">
+<b>onMouseOver</b>:EventEx{}
+							<br>fires when the mouse is over the button</div>
+</body>
+</html>

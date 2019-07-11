@@ -1,0 +1,101 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.tracking<br>
+    	Name:	ScormAPI<br>
+    	Extends: <a href="EventDispatcher.html">com.crackerbarrel.events.EventDispatcher<br>
+</a>
+<p>Is a wrapper class around the Scorm API adaptor and it's related function. Do not instance directly it is available globally in TrackingManager.api</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>ScormAPI</b>():ScormAPI<br>
+<p></p>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>api</b> : object<br>
+		The Scorm API adaptor as provided by the LMS
+	</div>
+<div class="propertyDiv">
+<b>findTriesMax</b> : Int=500<br>
+		The maximum number of tries to make while searching for the Scorm API adaptor
+	</div>
+<div class="propertyDiv">
+<b>initTime</b> : Date<br>
+		A date object holding the date/time the API was initialized
+	</div>
+<div class="propertyDiv">
+<b>masteryScore</b> : Int=0.8<br>
+		The score required to pass the course
+	</div>
+<div class="propertyDiv">
+<b>maxScore</b> : Int=100<br>
+		The minimum score the user can receive
+	</div>
+<div class="propertyDiv">
+<b>minScore</b> : Int=0<br>
+		The minimum score the user can receive
+	</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>error</b>:EventEx{error:Int, msg:String}
+							<br>Fires when a Scorm API error has occured. Check the console window for the error message</div>
+</body>
+</html>

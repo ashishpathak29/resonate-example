@@ -1,0 +1,211 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	ShapeBase<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>This class acts as a base for drawn Shapes and should not be instanced directly.</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>ShapeBase</b>(id:String, shape:Kinetic.Shape):ShapeBase<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the shape
+	</td>
+</tr>
+<tr class="evenRow">
+<td>shape</td><td>Kinetic.Shape</td><td>
+		The shape object
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>canvas</b> : CanvasEx<br>
+		The CanvasEx object used to render the shape
+	</div>
+<div class="propertyDiv">
+<b>id</b> : String<br>
+		The id of the object
+	</div>
+<div class="propertyDiv">
+<b>orgHeight</b> : Int<br>
+		The original starting height
+	</div>
+<div class="propertyDiv">
+<b>orgWidth</b> : Int<br>
+		The original starting width
+	</div>
+<div class="propertyDiv">
+<b>orgX</b> : Int<br>
+		The original starting X position
+	</div>
+<div class="propertyDiv">
+<b>orgY</b> : Int<br>
+		The original starting Y position
+	</div>
+<div class="propertyDiv">
+<b>shape</b> : Shape<br>
+		The inner shape
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>centerTo</b>(obj:ShapeBase, duration:Int=50):Void<br>
+	
+<p>Moves the shape to the center of another shape</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>obj</td><td>ShapeBase</td><td>
+		The object to move this object to the center of.
+	</td>
+</tr>
+<tr class="evenRow">
+<td>duration</td><td>Int=50</td><td>
+		The time in milliseconds to complete the move.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getRect</b>():Object<br>Returns an object with x,y,width,height,centerX,centerY,offsetCenterX,offsetCenterY,x2,y2
+	<p>Gets information about the bounding rectangle of the shape.</p>
+</div>
+<div class="methodDiv">
+<b>moveTo</b>(x:Int, y:Int, duration:Int=1000):Void<br>
+	
+<p>Moves a shape to the given position.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>x</td><td>Int</td><td>
+		The x position to move to
+	</td>
+</tr>
+<tr class="evenRow">
+<td>y</td><td>Int</td><td>
+		The y position to move to
+	</td>
+</tr>
+<tr class="oddRow">
+<td>duration</td><td>Int=1000</td><td>
+		The time in milliseconds to complete the move
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>overlaps</b>(obj:ShapeBase, checkCenter:Boolean=false):Void<br>
+	
+<p>Checks to see if two shapes are overlapping</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>obj</td><td>ShapeBase</td><td>
+		The shape to check to see if this shape is over
+	</td>
+</tr>
+<tr class="evenRow">
+<td>checkCenter</td><td>Boolean=false</td><td>
+		True/False should only the center of the shape be considered.
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>putBack</b>():Void<br>
+	
+<p>Moves the shape to starting position.</p>
+</div>
+</body>
+</html>

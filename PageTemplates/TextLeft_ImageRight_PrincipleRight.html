@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Page 1</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<script>
+			var pageContent;
+			var img;
+			var audio;
+			preload = true; // global variable to determine if a page is waiting on files to preload. if true the loading animation will show
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.addPreloadFile(FileSystem.getURI("images/placeHolder.jpg"));// add the files
+				pageContent.addPreloadFile(FileSystem.getURI("audio/Responsibilities_02.mp3"));
+				pageContent.preloadFiles();// load the files and wait for the event
+				
+			});
+			
+			// have the preloaded files down, show the page.
+			function handlePreloadComplete(e)
+			{
+				img = pageContent.addChild( new ImageObj("img",530,100,417,200,Styles.image,FileSystem.getURI("images/placeHolder.jpg")));
+					img.setClass("roundImage");
+				audio = pageContent.addAudio("audio",FileSystem.getURI("audio/Responsibilities_02.mp3"));
+				pageContent.addAudioButton(audio,"audioBtn",null,{x:490, y:420});
+				
+				Animation.fadeIn($("#textBox"));
+				Animation.fadeIn($("#principles"));
+				Animation.fadeIn(img);
+				setPrompt("Click Next to Continue.");
+				pageContent.refreshStage();
+				console.log("hide preloader");
+				showPreloader(false);
+				
+			}
+			
+			
+		</script>
+	</head>
+
+	<body>
+	<div id="textBox" class="textBoxLeft" style="opacity: 0; top:100px; height:350px; z-index: 10">
+		<span class="titleText">Appearance</span> 
+		<p>Preparing for your shift begins before you even arrive at Cracker Barrel. Check your uniform — you need to be ready to work as soon as you walk through the front door. Make sure your uniform is clean, neat, and pressed daily: shirt is neatly tucked in, belt is worn if pants have belt loops, and the uniform is maintained throughout the shift. You should not wear a white apron in the front of the house. By dressing in a uniform which consistently matches expectations outlined in the Employee Handbook, you demonstrate to our Guests that you are a professional and that you take pride in yourself and your job.</p>
+		<p>Always serve our Guests and your co-workers with a positive attitude and friendly smile.</p>
+	</div>	
+	<div id="principles" class="principles" style="opacity: 0; height:100px; top:320px">
+			<p>Guiding principle - Appearance</p>
+			<ul><li>Have your uniform sharp and crisp.</li>
+				<li>Exhibit professional body language.</li></ul>
+		</div>
+	</body>
+</html>

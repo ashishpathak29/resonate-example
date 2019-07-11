@@ -1,0 +1,137 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.components<br>
+    	Name:	Accordion<br>
+    	Extends: <a href="UIComponent.html">com.crackerbarrel.components.UIComponent<br>
+</a>
+<p>Wrapper class around the jQuery UI accordion widget</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>Accordion</b>(id:String, left:Int, top:Int, divID:String, uiStyle:AccordionStyle=null):Accordion<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		id of the object
+	</td>
+</tr>
+<tr class="evenRow">
+<td>left</td><td>Int</td><td>
+		left position of the accordion
+	</td>
+</tr>
+<tr class="oddRow">
+<td>top</td><td>Int</td><td>
+		top position of the accordion
+	</td>
+</tr>
+<tr class="evenRow">
+<td>divID</td><td>String</td><td>
+		div id of the accordion
+	</td>
+</tr>
+<tr class="oddRow">
+<td>uiStyle</td><td>AccordionStyle=null</td><td>
+		style data to pass to the Accordion
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>count</b> : Int<br>
+		The count of the number of items in the accordion
+	</div>
+<div class="propertyDiv">
+<b>divID</b> : String<br>
+		The id of the div holding the accordion
+	</div>
+<div class="propertyDiv">
+<b>seen</b> : Array<br>
+		an array of viewed items
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>getCompleted</b>():Boolean<br>True/False has the user seen all items
+	<p></p>
+</div>
+<div class="methodDiv">
+<b>getSelected</b>():Integer<br>Index of the selected button
+	<p></p>
+</div>
+<p></p>
+<b>Events</b>
+<div class="eventDiv">
+<b>onChange</b>:EventEx{index:Int, complete:Boolean, seen:Array}
+							<br>Fires when the item index has been changed</div>
+<div class="eventDiv">
+<b>onComplete</b>:EventEx{}
+							<br>Fires when all items have been viewed</div>
+</body>
+</html>

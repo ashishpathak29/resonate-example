@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>SlideShow</title>
+		<meta name="description" content="" />
+		<meta name="author" content="christopher swenson" />
+		
+		<link rel="stylesheet" href="skin/css/jshowoff.css" type="text/css"/>
+		<script>
+			var pageContent;
+			var slideHolder;
+			var audioList = new Array();
+			$(document).ready(function()
+			{
+				pageContent = new PageContent();
+				
+				pageContent.addListener("onPreloadComplete",handlePreloadComplete);
+				pageContent.preloadFiles();// load the files and wait for the event
+				// if no files to preload then call the handler directly
+				handlePreloadComplete();
+			});
+			
+			
+			
+			function handlePreloadComplete(e)
+			  
+			{
+				
+				enableNextButton(false);
+				slideHolder = pageContent.addChild(new DivObj("slideHolder",150,60,null,false));
+				slideHolder.setCSS("overflow","hidden");
+				slideHolder.attachDiv($("#slideShow"));	
+				
+				// need to store audio objects in an array
+				audioList.push(pageContent.addAudio("slide0Audio",FileSystem.getURI("audio/e_equipment_01.mp3")));
+				audioList.push(pageContent.addAudio("slide1Audio",FileSystem.getURI("audio/e_equipment_01_a.mp3")));
+				audioList.push(pageContent.addAudio("slide2Audio",FileSystem.getURI("audio/e_equipment_02.mp3")));
+				audioList.push(pageContent.addAudio("slide3Audio",FileSystem.getURI("audio/e_equipment_04.mp3")));
+				audioList.push(pageContent.addAudio("slide4Audio",FileSystem.getURI("audio/e_equipment_05.mp3")));
+				audioList.push(pageContent.addAudio("slide5Audio",FileSystem.getURI("audio/e_equipment_06.mp3")));
+				audioList.push(pageContent.addAudio("slide6Audio",FileSystem.getURI("audio/e_equipment_05_a.mp3")));
+				audioList.push(pageContent.addAudio("slide7Audio",FileSystem.getURI("audio/e_equipment_05_b.mp3")));
+				audioList.push(pageContent.addAudio("slide8Audio",FileSystem.getURI("audio/e_equipment_07.mp3")));
+				audioList.push(pageContent.addAudio("slide9Audio",FileSystem.getURI("audio/e_equipment_08.mp3")));
+				
+				$('#slideShow').jshowoff({completedCallback:function(){
+					
+					setPrompt("Click next to continue");
+					enableNextButton(true);				
+				},changeCallBack:function(index){
+					// when ever a slide is changed stop all the audio
+					pageContent.stopAllAudio();
+				}});
+				$('#slideShow').css("opacity",1);
+				pageContent.refreshStage();
+				setPrompt("View each slide to learn more");
+			}
+			
+			function playSlideAudio(index)
+			{
+				// play/pause the selected audio file
+				audioList[index].togglePlay();
+			}// end function
+			
+		</script>
+	</head>
+
+	<body>
+
+		<div id="slideShow" style="opacity: 0">
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Grills</h2>
+				<p>The grills use direct heat to cook food. Your grill is divided into two sections -- one for eggs which is set to 225°F and, one for proteins and pancakes, French toast, and breads which is set to 400°F. The egg grill is separate not only because of the difference in temperature, but also because of the different cleaning procedures.</p><br>
+				<p>Note: Scrape the grill properly, from back to front, after cooking each protein to ensure that the flavor of the bread and pancakes that are cooked afterwards are not impacted.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(0);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Grill Timers</h2>
+				<p>Grills are equipped with 16 function timers. These timers prompt the Grill Cook to turn all protein items when required and to remove when finished.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(1);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Steamline</h2>
+				<p>The steamline is a well that holds hot water and keeps prepared food hot enough to be served immediately. Pans of prepared foods are placed in the steam wells, which are heated to 160°F – 170°F. The wells should be filled so that an empty pan will float slightly in the well.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(2);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Fryers</h2>
+				<p>Fryers cook food by immersing it in hot vegetable oil. The hot oil forms an immediate crust on the food, so the food will be crunchy on the outside, but moist on the inside. The fryer temperature must be 350°F.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(3);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Hot Box</h2>
+				<p>Food is prepared by the Backup Cook and stored in the hotbox for use on the steamline. The food is maintained between 160°F and 170°F in the hotbox.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(4);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Flav-R-Savor</h2>
+				<p>Use the Flav-R-Savors for storing baked potatoes, biscuits, and corn muffins. <br></p>
+				<p>Baked potatoes can only be held for one hour after baking. After that, they must be discarded. 
+Baked potatoes are cooked in small batches every 30 minutes. Always serve the oldest potatoes first. 
+</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(5);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Hot Hold Units</h2>
+				<p>The Hot Hold units use infrared energy to keep food warm. The gentle nature of the heat generated by the unit allows food to be held longer while maintaining food quality. There are Hot Hold units beside the steamline and the fry station. Certain foods from the grill and fryers may be held here for up to 15 minutes. The Hot Hold units make it possible to "batch-cook" certain items during peak times. Your manager will communicate the appropriate times and give direction to the quantities of items to “batch-cook”.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(6);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Bread Pass-Thru</h2>
+				<p>The Bread Pass-Thru is accessible from either the grill or the server aisle but is primarily stocked by the Backup Cooks but may be stocked by either Grill Cooks or Servers too. Each unit has factory pre-set upper and lower heating elements. The temperatures are set at 225°F (top) and 275°F (bottom).</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(7);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Freezers</h2>
+				<p>Most perishable foods, such as meats and vegetables for frying, are stored in the walk-in freezer. The temperature must be maintained between -10°F and 0°F. If the freezer temperature is outside of this range, notify your Manager immediately.<br></p>
+				<p>Smaller reach-in freezers are located near the grills. Frozen foods for immediate use are stored here.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(8);"></div>
+			</div>	
+			<div>
+				<img src="images/placeHolder.jpg" class="roundImage" style="float: right;padding: 15px 20px 15px 20px;" />
+				<h2>Coolers</h2>
+				<p>Most foods will be thawed for cooking in the walk-in cooler. Some foods, including extra eggs and pancake batter, will be stored here as well. The temperature must be set between 34°F to 38°F.</p>
+				<p>Smaller reach-in coolers are located near the grills. You will store food for immediate use, including eggs, raw chicken tenders, and Egg Beaters here. The temperature must be set between 34°F to 38°F.</p>
+				<div id="audioButton" class="audioBtn audioBtnSlide" onclick="playSlideAudio(9);"></div>
+			</div>	
+			
+		</div>
+		
+	</body>
+</html>		

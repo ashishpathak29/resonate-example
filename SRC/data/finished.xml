@@ -1,0 +1,54 @@
+<cb:Page xmlns:cb="http://www.crackerbarrel.com/resonate">
+	
+	<cb:CSS><![CDATA[
+		.msgBackground{
+			 border-style:ridge;
+			 border-color:black;
+			 border-width:thick;
+			 border-radius: 15px;
+	   		 background: rgba(255,255,255,0.7);
+	    	 opacity:0;
+	    	 padding:10px;
+			
+		}	
+
+	]]></cb:CSS>
+	
+	<cb:Event name="onPageLoad">
+		<cb:Script><![CDATA[
+ 				setPrompt("Please exit the course.");
+    			enableNextButton(false);
+    			
+    			if (TrackingManager.score != undefined && TrackingManager.score >= 80){
+					TrackingManager.setScore(TrackingManager.score);
+				}else{
+					// don't have a score, something has gone wrong, give them 100%
+					TrackingManager.setScore(100);
+				}// end if
+				TrackingManager.setStatus("completed");
+
+			]]></cb:Script>
+	</cb:Event>
+	
+	
+	
+	<cb:Image id="bkImg" x="0" y="0" width="1004" height="502">
+		<cb:Value><![CDATA[images/slide_1/slide12.jpg]]></cb:Value>
+	</cb:Image>
+	
+	<cb:Div id="callOut" x="550" y="203" width="422" height="220" z-index="100" opacity="0" color="black" background-color="white" border-radius="10px 10px 10px 10px"  border-style="ridge"  border-color="#492912"  border-width="2px" box-shadow= "8px 8px 20px #000">
+		<cb:Text id="text" x="13" y="6" width="400" height="180">	
+			<cb:Value><![CDATA[<font size="3" ><span class="titleText">Congratulations! You have completed the Dishes and Equipment module.</span>
+			<p>You may now exit the course by clicking the exit button at the bottom-left of the screen.</p><p>If the course does not exit, please close the window by clicking the X button at the top of the screen.</p></font>]]></cb:Value>
+			</cb:Text>
+		<cb:Event name="onRender">
+			<cb:Script><![CDATA[
+		    	Animation.fadeIn(sender);
+			]]></cb:Script>
+		</cb:Event>
+	</cb:Div>
+	<cb:Audio id="audio" autoPlay="true">
+		<cb:Value><![CDATA[audio/CB_Module 2_V1_S24.mp3]]></cb:Value>
+	</cb:Audio>
+	
+</cb:Page>

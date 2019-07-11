@@ -1,0 +1,261 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+					.constructorDiv, .methodDiv,.eventDiv,.propertyDiv{
+						border:2px solid;
+						border-radius:5px;
+						background-color:#b7ffcb;
+						position:relative;
+						padding:10px;
+						
+					-webkit-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					-moz-box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+					box-shadow: 4px 8px 11px 1px rgba(0,0,0,0.6);
+						
+					}
+					
+					.constructorDiv{background-color:#faff00;}
+					
+					.eventDiv{background-color:#fcb8b8;}
+					
+					.propertyDiv{background-color:#adcbff;}
+					
+					.evenRow
+					{
+						background-color:#98d6e0;
+					}
+					.oddRow
+					{
+						background-color:#98d6e0;
+					}
+					
+					
+					div+div{margin-top:10px;}
+					
+					table
+					{
+					border-collapse:collapse;
+					}
+					table, th, td
+					{
+					border: 1px solid black;
+					}
+					
+				</style>
+<script src="../js/jquery-2.1.0.min.js"></script><script>
+    			$(document).ready(function()
+				{
+				//  $("tr:odd").css("background-color", "#dbdbdb");
+				//  $("tr:even").css("background-color", "#98d6e0");
+				});
+    				
+    			
+    			</script>
+</head>
+<body>
+   
+    	Package: com.crackerbarrel.structure<br>
+    	Name:	Container<br>
+    	Extends: <a href="EventDispatcher.html">com.crackerbarrel.events.EventDispatcher<br>
+</a>
+<p>Holds a collection of language information.</p>
+<p></p>
+<b>Constructor</b>
+<div class="constructorDiv">
+<b>Container</b>(id:String, parent:Container):Container<br>
+<p></p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>id</td><td>String</td><td>
+		The id of the container
+	</td>
+</tr>
+<tr class="evenRow">
+<td>parent</td><td>Container</td><td>
+		The parent container or course of this container
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<p></p>
+<b>Properties</b>
+<div class="propertyDiv">
+<b>currentContainer</b> : Int<br>
+		The index of the current sub container
+	</div>
+<div class="propertyDiv">
+<b>currentPage</b> : Int<br>
+		The index of the current page
+	</div>
+<div class="propertyDiv">
+<b>id</b> : String<br>
+		The id of the Container
+	</div>
+<div class="propertyDiv">
+<b>index</b> : Int<br>
+		The index of this container within it's parent's collection of containers
+	</div>
+<div class="propertyDiv">
+<b>languages</b> : Languages<br>
+		The collection of Language objects available to this container
+	</div>
+<div class="propertyDiv">
+<b>pages</b> : Array<br>
+		An Array of pages within the container
+	</div>
+<div class="propertyDiv">
+<b>parent</b> : Container<br>
+		The parent container or course of this container
+	</div>
+<div class="propertyDiv">
+<b>titles</b> : KeyCollection<br>
+		A collection of titles for the container
+	</div>
+<p></p>
+<b>Methods</b>
+<div class="methodDiv">
+<b>addContainer</b>(container:Container):Void<br>
+	
+<p>Adds a new container to this containers collection of sub containers.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>container</td><td>Container</td><td>
+		The child container to add
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>addPage</b>(pageOrId:String|Page):Void<br>
+	
+<p>Adds a page to this containers collection of pages, it will create a new page if an id is passed.</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>pageOrId</td><td>String|Page</td><td>
+		The page object or page id to add
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getFirstPage</b>():Page<br>
+	
+<p>Returns the first page in this container</p>
+</div>
+<div class="methodDiv">
+<b>getHasPages</b>():Boolean<br>
+	
+<p>Returns the True or false if the container contains pages</p>
+</div>
+<div class="methodDiv">
+<b>getNextPage</b>():Page<br>
+	
+<p>Returns the next page in this container based on the currentPage property</p>
+</div>
+<div class="methodDiv">
+<b>getNextSibling</b>():Container<br>
+	
+<p>Returns the next sibling of this container in relation to it's parent</p>
+</div>
+<div class="methodDiv">
+<b>getPage</b>(index:Int):Page<br>
+	
+<p>Returns the given page by index and sets the currentPage property</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>index</td><td>Int</td><td>
+		The index of the page you want to get
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getPageByIndex</b>(index:Int):Page<br>
+	
+<p>Returns the given page by index and does not set the currentPage property</p>
+<p>
+<i><b>Parameters</b></i>
+</p>
+<div style="position:relative;left:50px;">
+<table width="80%">
+<tr style="background-color:#FFFFFF">
+<td>Name</td><td>Type</td><td>Description</td>
+</tr>
+<tr class="oddRow">
+<td>index</td><td>Int</td><td>
+		The index of the page you want to get
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="methodDiv">
+<b>getPageCount</b>():Int<br>
+	
+<p>Returns the of pages held within this container</p>
+</div>
+<div class="methodDiv">
+<b>getPageStatus</b>():Array<br>
+	
+<p>Returns the viewed/completed status of all pages within this container as an Array of integers: 0 not viewed, 1, started, 2 viewed</p>
+</div>
+<div class="methodDiv">
+<b>getPrevPage</b>():Page<br>
+	
+<p>Returns the previous page in this container based on the currentPage property</p>
+</div>
+<div class="methodDiv">
+<b>getPrevSibling</b>():Container<br>
+	
+<p>Returns the previous sibling of this container in relation to it's parent</p>
+</div>
+<div class="methodDiv">
+<b>getStatus</b>():Int<br>
+	
+<p>Returns the viewed/completed status of this container as an integer: 0 not viewed, 1, started, 2 viewed</p>
+</div>
+<div class="methodDiv">
+<b>getTitle</b>():String<br>
+	
+<p>Returns the title of the container for the current course language.</p>
+</div>
+<div class="methodDiv">
+<b>toSimpleObject</b>():Object<br>
+	
+<p>Returns the container as a serialized POJO without methods only properties.</p>
+</div>
+</body>
+</html>
